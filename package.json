@@ -2,11 +2,12 @@
   "name": "tubutler",
   "version": "0.0.1",
   "description": "youtube desktop client",
-  "main": "index.js",
+  "main": "dist/main.js",
   "author": "joe-re <joe.tialtngo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "electron": "electron ."
   },
   "dependencies": {
     "vue": "^2.3.4",
@@ -14,6 +15,7 @@
   },
   "devDependencies": {
     "css-loader": "^0.28.4",
+    "electron": "^1.6.10",
     "ts-loader": "^2.1.0",
     "typescript": "^2.3.4",
     "vue-loader": "^12.2.1",
