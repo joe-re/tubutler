@@ -9,7 +9,8 @@
     "build": "webpack"
   },
   "dependencies": {
-    "vue": "^2.3.4"
+    "vue": "^2.3.4",
+    "vue-class-component": "^5.0.1"
   },
   "devDependencies": {
     "css-loader": "^0.28.4",
