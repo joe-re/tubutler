@@ -9,24 +9,21 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from 'vue-class-component'
+import {
+  State,
+  Getter,
+  Action,
+  Mutation,
+  namespace
+} from 'vuex-class'
 
 @Component({
-  props: {
-    name: String,
-    initialEnthusiasm: Number
-  }
+  props: { name: String }
 })
 export default class Hello extends Vue {
-  initialEnthusiasm: number
-  enthusiasm = this.initialEnthusiasm
-
-  increment() {
-    this.enthusiasm++
-  }
-
-  decrement() {
-    this.enthusiasm--
-  }
+  @Action increment: () => void
+  @Action decrement: () => void
+  @State enthusiasm: number
 
   get exclamationMarks(): string {
     return Array(this.enthusiasm + 1).join('!');
