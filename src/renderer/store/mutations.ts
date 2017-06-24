@@ -1,4 +1,5 @@
-import { createMutations, SeachActions } from './actions';
+import { SeachActions } from './actions';
+import { createMutations } from './TypedActions';
 type State = {
   enthusiasm: number
 }
