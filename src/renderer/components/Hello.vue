@@ -3,6 +3,7 @@
     <div>Hello {{name}}{{exclamationMarks}}</div>
     <button @click="decrement">-</button>
     <button @click="increment">+</button>
+    <button @click="search">search</button>
   </div>
 </template>
 
@@ -23,6 +24,7 @@ import {
 export default class Hello extends Vue {
   @Action increment: () => void
   @Action decrement: () => void
+  @Action search: () => void
   @State enthusiasm: number
 
   get exclamationMarks(): string {

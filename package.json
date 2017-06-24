@@ -10,6 +10,7 @@
     "electron": "electron ."
   },
   "dependencies": {
+    "url-search-params": "^0.9.0",
     "vue": "^2.3.4",
     "vue-class-component": "^5.0.1",
     "vuex": "^2.3.1",
