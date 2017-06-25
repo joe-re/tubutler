@@ -2,13 +2,15 @@ import deserializeJSONResponse from './desirializeJSONResponse';
 import Request from './Request';
 import { SearchResult } from '../types/SratchResult';
 
-function fetchList(): Promise<SearchResult> {
+type FeatchListParams = { q: string }
+function fetchList(params: FeatchListParams): Promise<SearchResult> {
   return deserializeJSONResponse(
     Request.get({
       url: `https://www.googleapis.com/youtube/v3/search`,
       parameters: {
         part: 'snippet',
-        order: 'date'
+        order: 'date',
+        q: params.q
       }
     })
   );

@@ -14,7 +14,8 @@
     "vue": "^2.3.4",
     "vue-class-component": "^5.0.1",
     "vuex": "^2.3.1",
-    "vuex-class": "^0.2.0"
+    "vuex-class": "^0.2.0",
+    "vuex-connect": "^1.2.0"
   },
   "devDependencies": {
     "css-loader": "^0.28.4",

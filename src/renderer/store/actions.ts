@@ -9,8 +9,8 @@ export type SeachActions = {
 }
 
 export const actions = createActions<null, null, SeachActions>({
-  search: ({ typedCommit }) => {
-    SearchAPI.fetchList().then((res) => {
+  search: ({ typedCommit }, payload) => {
+    SearchAPI.fetchList({ q: payload.q }).then((res) => {
       typedCommit.SEARCH_RESOLVED({ item: res.items });
     }).catch(e => {
       typedCommit.SEARCH_REJECTED({ message: e.message || '' });

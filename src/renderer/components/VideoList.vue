@@ -1,25 +1,25 @@
 <template>
    <div>
-     <input v-model="text" type="text" placeholder="Seach...">
-     <button @click="search">Search</button>>
+     {{items}}
+     <button @click="show">show</button>>
    </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from 'vue-class-component'
+import { Item } from '../types/Item';
 
 @Component({
   props: {
-    actions: Object
+    items: [Object]
   }
-})
+ })
 export default class SearchInput extends Vue {
+  items: Item[]
   text: string = "";
-  actions: any;
-  search() {
-    this.actions.search({ q: this.text });
-  }
+  show() { console.log(this.items); }
 }
 </script>
+
 

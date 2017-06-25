@@ -1,7 +1,7 @@
 <template>
   <div>
-    <search-input></search-input>
-    <hello></hello>
+    <search-input :actions="actions"></search-input>
+    <video-list></video-list>
   </div>
 </template>
 
@@ -9,12 +9,15 @@
 import Vue from "vue";
 import Component from 'vue-class-component'
 import SearchInput from "./SearchInput.vue";
-import Hello from "./Hello.vue";
+import VideoList from "./VideoList.vue";
 
 @Component({
   components: {
     "search-input": SearchInput,
-    "hello": Hello
+    "video-list": VideoList
+  },
+  props: {
+    actions: Object
   }
 })
 export default class Home extends Vue {
