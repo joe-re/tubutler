@@ -12,7 +12,7 @@ import { Item } from '../types/Item';
 
 @Component({
   props: {
-    items: [Object]
+    items: Array
   }
  })
 export default class SearchInput extends Vue {

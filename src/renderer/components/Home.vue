@@ -1,7 +1,7 @@
 <template>
   <div>
     <search-input :actions="actions"></search-input>
-    <video-list></video-list>
+    <video-list :items="state.items"></video-list>
   </div>
 </template>
 
@@ -17,7 +17,8 @@ import VideoList from "./VideoList.vue";
     "video-list": VideoList
   },
   props: {
-    actions: Object
+    actions: Object,
+    state: Object
   }
 })
 export default class Home extends Vue {

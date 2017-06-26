@@ -1,5 +1,5 @@
 <template>
-  <home :actions="actions"></home>
+  <home :actions="actions" :state="state"></home>
 </template>
 
 <script lang="ts">
@@ -8,15 +8,13 @@ import Component from 'vue-class-component'
 import SearchInput from "./SearchInput.vue";
 import Home from '../components/Home.vue'
 import store from '../store';
-import { actions } from '../store/actions';
+import getActions from './getActions';
 
 @Component({
   components: { "home": Home }
 })
 export default class HomeContainer extends Vue {
   state = store.state;
-  actions = {
-    search: (params: { q: string }) => store.dispatch('search', params)
-  };
+  actions = getActions();
 }
 </script>
