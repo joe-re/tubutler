@@ -1,19 +1,22 @@
 <template>
-  <div class="page">
-    <search-input :actions="actions"></search-input>
-    <video-list :items="state.items"></video-list>
+  <div>
+    <toolbar-header :actions="actions"></toolbar-header>
+    <div class="page">
+      <search-input :actions="actions"></search-input>
+      <video-list :items="state.items"></video-list>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from 'vue-class-component'
-import SearchInput from "./SearchInput.vue";
+import Header from "./Header.vue";
 import VideoList from "./VideoList.vue";
 
 @Component({
   components: {
-    "search-input": SearchInput,
+    "toolbar-header": Header,
     "video-list": VideoList
   },
   props: {

@@ -10,7 +10,8 @@ function fetchList(params: FeatchListParams): Promise<SearchResult> {
       parameters: {
         part: 'snippet',
         order: 'date',
-        q: params.q
+        q: params.q,
+        type: 'video'
       }
     })
   );
