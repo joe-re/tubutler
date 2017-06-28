@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <search-input :actions="actions"></search-input>
     <video-list :items="state.items"></video-list>
   </div>
@@ -24,5 +24,8 @@ import VideoList from "./VideoList.vue";
 export default class Home extends Vue {
 }
 </script>
-
-
+<style scoped>
+  .page {
+    margin: 20px;
+  }
+</style>
