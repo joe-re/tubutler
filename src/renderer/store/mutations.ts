@@ -11,7 +11,7 @@ export const mutations = createMutations<State, SeachActions>({
         console.log("error");
         throw new Error(`can't find video API response. ${item.id.videoId}`);
       }
-       return Object.assign({}, item, videoItem);
+       return Object.assign({}, videoItem, item );
     });
     state.items = items;
   },

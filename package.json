@@ -18,7 +18,8 @@
     "vue-router": "^2.7.0",
     "vuex": "^2.3.1",
     "vuex-class": "^0.2.0",
-    "vuex-connect": "^1.2.0"
+    "vuex-connect": "^1.2.0",
+    "youtube-player": "^5.4.0"
   },
   "devDependencies": {
     "css-loader": "^0.28.4",

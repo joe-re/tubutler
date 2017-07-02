@@ -1,23 +1,25 @@
 <template>
-  <div class="thumbnail">
-    <div class="image">
-      <img v-bind:src="src" width="300px"></img>
+  <router-link tag="div" :to="link">
+    <div class="thumbnail">
+      <div class="image">
+        <img v-bind:src="src" width="300px"></img>
+      </div>
+      <div class="description">
+        <div class="title">
+          <span>{{title}}</span>
+        </div>
+        <div class="channel">
+          <span>{{channel}}</span>
+        </div>
+        <div class="published-at">
+          <span>{{publishedAt}} ago</span>
+        </div>
+        <div class="view-count">
+          <span>{{viewCount}} views</span>
+        </div>
+      </div>
     </div>
-    <div class="description">
-      <div class="title">
-        <span>{{title}}</span>
-      </div>
-      <div class="channel">
-        <span>{{channel}}</span>
-      </div>
-      <div class="published-at">
-        <span>{{publishedAt}} ago</span>
-      </div>
-      <div class="view-count">
-        <span>{{viewCount}} views</span>
-      </div>
-    </div>
-  </div>
+  </router-link>
 </template>
 
 <script lang="ts">
@@ -51,6 +53,9 @@ export default class Thumbnail extends Vue {
   get publishedAt() {
     return distanceInWordsToNow(new Date(this.item.snippet.publishedAt));
   }
+  get link() {
+    return `/${this.item.id.videoId}`;
+  }
 }
 </script>
 
@@ -62,6 +67,7 @@ export default class Thumbnail extends Vue {
   img {
     width: 200px;
     margin-right: 16px;
+    cursor: pointer;
   }
   .description {
   }
