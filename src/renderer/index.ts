@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Home from "./containers/HomeContainer.vue";
-import store from "./store";
+import router from './router';
 
 let v = new Vue({
   el: "#app",
-  data: { name: "World" },
-  render: h => h(Home)
+  router,
+  template: "<router-view></router-view>"
 });

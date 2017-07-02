@@ -6,8 +6,8 @@ type APIResponse = {
    nextPageToken: string,
    regionCode: string,
    pageInfo: {
-    totalResults: number,
-    resultsPerPage: number
+     totalResults: number,
+     resultsPerPage: number
    }
 }
 
