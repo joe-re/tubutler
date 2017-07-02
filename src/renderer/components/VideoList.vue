@@ -13,7 +13,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from 'vue-class-component'
-import { Item } from '../types/Item';
+import { FullItem } from '../types/Item';
 import Thumbnail from './Thumbnail.vue';
 
 @Component({
@@ -25,7 +25,7 @@ import Thumbnail from './Thumbnail.vue';
   }
  })
 export default class SearchInput extends Vue {
-  items: Item[]
+  items: FullItem[]
   text: string = "";
   show() {
     console.log(this.items);

@@ -1,7 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { state, mutations } from './mutations'
+import { mutations } from './mutations'
 import { actions } from './actions';
+import { FullItem } from '../types/Item';
+
+export type State = {
+  items: FullItem[],
+  selectedItem: FullItem | null
+}
+
+export const state: State = {
+  items: [],
+  selectedItem: null
+}
 
 Vue.use(Vuex)
 

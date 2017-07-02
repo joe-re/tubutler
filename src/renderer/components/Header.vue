@@ -30,6 +30,7 @@ export default class Header extends Vue {
 <style scoped>
   header {
     padding: 8px;
+    height: 48px;
   }
 </style>
 

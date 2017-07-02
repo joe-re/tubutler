@@ -4,7 +4,18 @@
       <img v-bind:src="src" width="300px"></img>
     </div>
     <div class="description">
-      <span>{{title}}</span>
+      <div class="title">
+        <span>{{title}}</span>
+      </div>
+      <div class="channel">
+        <span>{{channel}}</span>
+      </div>
+      <div class="published-at">
+        <span>{{publishedAt}} ago</span>
+      </div>
+      <div class="view-count">
+        <span>{{viewCount}} views</span>
+      </div>
     </div>
   </div>
 </template>
@@ -12,7 +23,8 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from 'vue-class-component'
-import { Item } from '../types/Item';
+import { FullItem } from '../types/Item';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 @Component({
   props: {
@@ -23,12 +35,21 @@ import { Item } from '../types/Item';
   }
  })
 export default class Thumbnail extends Vue {
-  item: Item
+  item: FullItem
   get title() {
     return this.item.snippet.title;
   }
   get src() {
     return this.item.snippet.thumbnails.high.url;
+  }
+  get channel() {
+    return this.item.snippet.channelTitle;
+  }
+  get viewCount() {
+    return this.item.statistics.viewCount;
+  }
+  get publishedAt() {
+    return distanceInWordsToNow(new Date(this.item.snippet.publishedAt));
   }
 }
 </script>

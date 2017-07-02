@@ -2,7 +2,6 @@
   <div>
     <toolbar-header :actions="actions"></toolbar-header>
     <div class="page">
-      <search-input :actions="actions"></search-input>
       <video-list :items="state.items"></video-list>
     </div>
   </div>
@@ -28,7 +27,8 @@ export default class Home extends Vue {
 }
 </script>
 <style scoped>
-  .page {
-    margin: 20px;
-  }
+ .page {
+   overflow-y: scroll;
+   max-height: calc(100vh - 48px);
+ }
 </style>

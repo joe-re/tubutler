@@ -10,6 +10,7 @@
     "electron": "electron ."
   },
   "dependencies": {
+    "date-fns": "^1.28.5",
     "photon": "github:connors/photon",
     "url-search-params": "^0.9.0",
     "vue": "^2.3.4",
