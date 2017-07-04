@@ -17,4 +17,18 @@ function fetchList(params: FeatchListParams): Promise<SearchAPIResponse> {
   );
 }
 
-export default { fetchList };
+function fetchRelatedVideos(params: { videoId: string }): Promise<SearchAPIResponse> {
+  return deserializeJSONResponse(
+    Request.get({
+      url: `https://www.googleapis.com/youtube/v3/search`,
+      parameters: {
+        part: 'snippet',
+        order: 'viewCount',
+        relatedToVideoId: params.videoId,
+        type: 'video'
+      }
+    })
+  );
+}
+
+export default { fetchList, fetchRelatedVideos };

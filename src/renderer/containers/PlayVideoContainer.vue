@@ -18,6 +18,9 @@ export default class PlayVideoContainer extends Vue {
   state = store.state;
   actions = getActions();
   $route: Route;
+  mounted() {
+    this.actions.fetchRelatedVideos({ videoId: this.id });
+  }
   get id() {
     return this.$route.params.id;
   }

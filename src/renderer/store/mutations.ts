@@ -2,19 +2,27 @@ import { SeachActions } from './actions';
 import { createMutations } from './TypedActions';
 import { FullItem } from '../types/Item';
 import { State } from './index';
+import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';
+
+function mergeResponse(searchAPIResponse: SearchAPIResponse, videoAPIResponse: VideoAPIResponse): FullItem[] {
+  return searchAPIResponse.items.map(item => {
+    const videoItem = videoAPIResponse.items.find(videoItem => videoItem.id === item.id.videoId);
+    if (!videoItem) {
+      throw new Error(`can't find video API response. ${item.id.videoId}`);
+    }
+    return Object.assign({}, videoItem, item );
+  });
+}
 
 export const mutations = createMutations<State, SeachActions>({
   ['SEARCH_RESOLVED'](state, payload) {
-    const items = payload.searchApiResponse.items.map(item => {
-      const videoItem = payload.VideoAPIResponse.items.find(videoItem => videoItem.id === item.id.videoId);
-      if (!videoItem) {
-        console.log("error");
-        throw new Error(`can't find video API response. ${item.id.videoId}`);
-      }
-       return Object.assign({}, videoItem, item );
-    });
-    state.items = items;
+    state.items = mergeResponse(payload.searchAPIResponse, payload.videoAPIResponse);
   },
   ['SEARCH_REJECTED'](state, payload) {
+  },
+  ['SEARCH_RELATED_VIDEOS_RESOLVED'](state, payload) {
+    state.relatedVideos = mergeResponse(payload.searchAPIResponse, payload.videoAPIResponse);
+  },
+  ['SEARCH_RELATED_VIDEOS_REJECTED'](state, payload) {
   }
 });

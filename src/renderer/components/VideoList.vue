@@ -6,7 +6,6 @@
      >
        <thumbnail :item="item"></thumbnail>
      </div>
-     <button @click="show">show</button>
    </div>
 </template>
 
@@ -27,9 +26,6 @@ import Thumbnail from './Thumbnail.vue';
 export default class SearchInput extends Vue {
   items: FullItem[]
   text: string = "";
-  show() {
-    console.log(this.items);
-  }
 }
 </script>
 

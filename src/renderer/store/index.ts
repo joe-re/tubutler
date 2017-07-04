@@ -6,12 +6,14 @@ import { FullItem } from '../types/Item';
 
 export type State = {
   items: FullItem[],
-  selectedItem: FullItem | null
+  selectedItem: FullItem | null,
+  relatedVideos: FullItem[]
 }
 
 export const state: State = {
   items: [],
-  selectedItem: null
+  selectedItem: null,
+  relatedVideos: []
 }
 
 Vue.use(Vuex)

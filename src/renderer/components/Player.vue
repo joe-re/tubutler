@@ -3,19 +3,24 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from 'vue-class-component'
 import YoutubePlayer from 'youtube-player';
 import { FullItem } from '../types/Item';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
-@Component({
-  props: {
-    id: { type: String, required: true }
-  }
- })
+@Component
 export default class Player extends Vue {
+  @Prop({ type: String, required: true })
   id: string;
+
   player: any;
+
+  @Watch('id')
+  onChangeId(val: string, oldVal: string) {
+    if (val !== oldVal) {
+      this.player.loadVideoById(val);
+    }
+  }
+
   mounted() {
     this.player = YoutubePlayer('player', { videoId: this.id });
   }
