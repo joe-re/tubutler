@@ -6,11 +6,18 @@
 import YoutubePlayer from 'youtube-player';
 import { FullItem } from '../types/Item';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Actions } from '../containers/getActions';
 
 @Component
 export default class Player extends Vue {
   @Prop({ type: String, required: true })
   id: string;
+
+  @Prop({ type: String })
+  nextId?: string;
+
+  @Prop({ type: Object, required: true })
+  actions: Actions;
 
   player: any;
 
@@ -23,6 +30,12 @@ export default class Player extends Vue {
 
   mounted() {
     this.player = YoutubePlayer('player', { videoId: this.id });
+    this.player.on('stateChange', (event: any) => {
+      if (event.data === 0 && this.nextId) {
+        this.player.loadVideoById(this.nextId);
+        this.actions.fetchRelatedVideos({ videoId: this.nextId });
+      }
+    });
   }
 }
 </script>

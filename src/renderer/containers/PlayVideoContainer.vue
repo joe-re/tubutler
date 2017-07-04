@@ -9,7 +9,7 @@ import SearchInput from "./SearchInput.vue";
 import PlayVideoPage from '../components/PlayVideoPage.vue'
 import store from '../store';
 import getActions from './getActions';
-import { Route } from 'vue-router';
+import VueRouter from 'vue-router';
 
 @Component({
   components: { "play-video-page": PlayVideoPage }
@@ -17,7 +17,6 @@ import { Route } from 'vue-router';
 export default class PlayVideoContainer extends Vue {
   state = store.state;
   actions = getActions();
-  $route: Route;
   mounted() {
     this.actions.fetchRelatedVideos({ videoId: this.id });
   }

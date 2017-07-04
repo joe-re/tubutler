@@ -2,7 +2,7 @@
   <div>
     <toolbar-header :actions="actions"></toolbar-header>
     <div class="page">
-      <player :id="videoId"></player>
+      <player :id="videoId" :nextId="nextVideoId" :actions="actions"></player>
       <video-list :items="relatedVideos"></video-list>
     </div>
   </div>
@@ -37,6 +37,13 @@ export default class PlayVideoPage extends Vue {
 
   get videoId() {
     return this.id;
+  }
+
+  get nextVideoId() {
+    if (this.state.relatedVideos.length === 0) {
+      return null;
+    }
+    return this.state.relatedVideos[0].id.videoId;
   }
 
   get relatedVideos() {
