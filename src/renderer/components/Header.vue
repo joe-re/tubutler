@@ -23,7 +23,11 @@ export default class Header extends Vue {
   text: string = "";
   actions: Actions;
   search(e: MouseEvent) {
-    this.actions.search({ q: this.text });
+    if (this.$router.currentRoute.path === '/') {
+      this.actions.search({ q: this.text });
+    } else {
+      this.$router.push('/', () => this.actions.search({ q: this.text }));
+    }
   }
 }
 </script>
