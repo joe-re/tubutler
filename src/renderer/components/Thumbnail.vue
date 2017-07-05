@@ -23,8 +23,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from 'vue-class-component'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { FullItem } from '../types/Item';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
@@ -37,7 +36,9 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
   }
  })
 export default class Thumbnail extends Vue {
+  @Prop({ type: Object, required: true})
   item: FullItem
+
   get title() {
     return this.item.snippet.title;
   }
@@ -62,13 +63,10 @@ export default class Thumbnail extends Vue {
 <style scoped>
   .thumbnail {
     display: flex;
-    padding: 16px;
   }
   img {
     width: 200px;
     margin-right: 16px;
     cursor: pointer;
-  }
-  .description {
   }
 </style>

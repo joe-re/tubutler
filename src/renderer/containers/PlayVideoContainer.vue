@@ -1,5 +1,5 @@
 <template>
-  <play-video-page :actions="actions" :state="state" :id="id"></play-video-page>
+  <play-video-page :actions="actions" :state="state" :id="id" :getters="getters"></play-video-page>
 </template>
 
 <script lang="ts">
@@ -17,7 +17,10 @@ import VueRouter from 'vue-router';
 export default class PlayVideoContainer extends Vue {
   state = store.state;
   actions = getActions();
+  getters = store.getters;
   mounted() {
+    if (store.getters) {
+  }
     this.actions.fetchRelatedVideos({ videoId: this.id });
   }
   get id() {

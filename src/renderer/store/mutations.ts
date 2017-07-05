@@ -24,5 +24,10 @@ export const mutations = createMutations<State, SeachActions>({
     state.relatedVideos = mergeResponse(payload.searchAPIResponse, payload.videoAPIResponse);
   },
   ['SEARCH_RELATED_VIDEOS_REJECTED'](state, payload) {
+  },
+  ['ADD_HISTORY'](state, payload) {
+    if (!state.playedVedeoIds.find(id => id === payload.videoId)) {
+      state.playedVedeoIds = [payload.videoId].concat(state.playedVedeoIds).slice(0, 19);
+    }
   }
 });

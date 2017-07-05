@@ -24,7 +24,7 @@ export default class Player extends Vue {
   @Watch('id')
   onChangeId(val: string, oldVal: string) {
     if (val !== oldVal) {
-      this.player.loadVideoById(val);
+      this.play(val);
     }
   }
 
@@ -32,10 +32,15 @@ export default class Player extends Vue {
     this.player = YoutubePlayer('player', { videoId: this.id });
     this.player.on('stateChange', (event: any) => {
       if (event.data === 0 && this.nextId) {
-        this.player.loadVideoById(this.nextId);
-        this.actions.fetchRelatedVideos({ videoId: this.nextId });
+        this.play(this.nextId);
       }
     });
+  }
+
+  play(id: string) {
+    this.player.loadVideoById(id);
+    this.actions.fetchRelatedVideos({ videoId: id });
+    this.actions.addHistory({ videoId: id });
   }
 }
 </script>

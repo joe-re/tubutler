@@ -9,9 +9,10 @@ function fetchList(params: FeatchListParams): Promise<SearchAPIResponse> {
       url: `https://www.googleapis.com/youtube/v3/search`,
       parameters: {
         part: 'snippet',
-        order: 'viewCount',
         q: params.q,
-        type: 'video'
+        type: 'video',
+        maxResults: 20
+
       }
     })
   );
@@ -23,9 +24,9 @@ function fetchRelatedVideos(params: { videoId: string }): Promise<SearchAPIRespo
       url: `https://www.googleapis.com/youtube/v3/search`,
       parameters: {
         part: 'snippet',
-        order: 'viewCount',
         relatedToVideoId: params.videoId,
-        type: 'video'
+        type: 'video',
+        maxResults: 20
       }
     })
   );

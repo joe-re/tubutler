@@ -1,5 +1,6 @@
 import SearchAPI from '../api_utils/SearchAPI';
 import VideoAPI from '../api_utils/VideoAPI';
+import { FullItem } from '../types/Item';
 import { createActions } from './TypedActions';
 import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';
 
@@ -15,6 +16,7 @@ export type SeachActions = {
     videoAPIResponse: VideoAPIResponse
   },
   SEARCH_RELATED_VIDEOS_REJECTED: { message: string },
+  ADD_HISTORY: { videoId: string }
 }
 
 export const actions = createActions<null, null, SeachActions>({
@@ -27,7 +29,7 @@ export const actions = createActions<null, null, SeachActions>({
       typedCommit.SEARCH_REJECTED({ message: e.message || '' });
     }
   },
-  fetchRelatedVideos: async ({ typedCommit }, payload: {videoId: string}) => {
+  fetchRelatedVideos: async ({ typedCommit }, payload: { videoId: string }) => {
     try {
       const searchAPIResponse = await SearchAPI.fetchRelatedVideos({ videoId: payload.videoId });
       const videoAPIResponse = await VideoAPI.fetchVideos({ ids: searchAPIResponse.items.map(item => item.id.videoId) });
@@ -35,10 +37,14 @@ export const actions = createActions<null, null, SeachActions>({
     } catch (e) {
       typedCommit.SEARCH_RELATED_VIDEOS_REJECTED({ message: e.message || '' });
     }
+  },
+  addHistory: ({ typedCommit }, payload: { videoId: string }) => {
+    typedCommit.ADD_HISTORY({ videoId: payload.videoId });
   }
 }, [
   'SEARCH_RESOLVED',
   'SEARCH_REJECTED',
   'SEARCH_RELATED_VIDEOS_RESOLVED',
-  'SEARCH_RELATED_VIDEOS_REJECTED'
+  'SEARCH_RELATED_VIDEOS_REJECTED',
+  'ADD_HISTORY'
 ]);

@@ -4,7 +4,7 @@
        v-for="item in items"
        :key="item.id"
      >
-       <thumbnail :item="item"></thumbnail>
+       <thumbnail class="thumbnail" :item="item"></thumbnail>
      </div>
    </div>
 </template>
@@ -29,4 +29,9 @@ export default class SearchInput extends Vue {
 }
 </script>
 
+<style scoped>
+  .thumbnail {
+    padding: 16px;
+  }
+</style>
 
