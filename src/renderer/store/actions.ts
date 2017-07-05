@@ -4,7 +4,7 @@ import { FullItem } from '../types/Item';
 import { createActions } from './TypedActions';
 import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';
 
-export type SeachActions = {
+export type SearchActions = {
   SEARCH_RESOLVED: {
     searchAPIResponse: SearchAPIResponse,
     videoAPIResponse: VideoAPIResponse
@@ -18,8 +18,15 @@ export type SeachActions = {
   SEARCH_RELATED_VIDEOS_REJECTED: { message: string },
   ADD_HISTORY: { videoId: string }
 }
+const ActionNames = [
+  'SEARCH_RESOLVED',
+  'SEARCH_REJECTED',
+  'SEARCH_RELATED_VIDEOS_RESOLVED',
+  'SEARCH_RELATED_VIDEOS_REJECTED',
+  'ADD_HISTORY'
+];
 
-export const actions = createActions<null, null, SeachActions>({
+export const actions = createActions<null, null, SearchActions>({
   search: async ({ typedCommit }, payload: { q: string }) => {
     try {
       const searchAPIResponse = await SearchAPI.fetchList({ q: payload.q });
@@ -41,10 +48,4 @@ export const actions = createActions<null, null, SeachActions>({
   addHistory: ({ typedCommit }, payload: { videoId: string }) => {
     typedCommit.ADD_HISTORY({ videoId: payload.videoId });
   }
-}, [
-  'SEARCH_RESOLVED',
-  'SEARCH_REJECTED',
-  'SEARCH_RELATED_VIDEOS_RESOLVED',
-  'SEARCH_RELATED_VIDEOS_REJECTED',
-  'ADD_HISTORY'
-]);
+}, ActionNames);

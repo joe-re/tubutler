@@ -1,4 +1,4 @@
-import { SeachActions } from './actions';
+import { SearchActions } from './actions';
 import { createMutations } from './TypedActions';
 import { FullItem } from '../types/Item';
 import { State } from './index';
@@ -14,7 +14,7 @@ function mergeResponse(searchAPIResponse: SearchAPIResponse, videoAPIResponse: V
   });
 }
 
-export const mutations = createMutations<State, SeachActions>({
+export const mutations = createMutations<State, SearchActions>({
   ['SEARCH_RESOLVED'](state, payload) {
     state.items = mergeResponse(payload.searchAPIResponse, payload.videoAPIResponse);
   },
