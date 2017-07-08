@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "css-loader": "^0.28.4",
-    "electron": "^1.6.10",
+    "electron": "1.6.11",
     "ts-loader": "^2.1.0",
     "typescript": "^2.3.4",
     "vue-loader": "^12.2.1",
