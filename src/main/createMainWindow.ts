@@ -1,6 +1,7 @@
 import { BrowserWindow, ipcMain, Menu } from 'electron';
 import path from 'path';
 import url from 'url';
+import events from '../constants/ipcEvents';
 
 export class MainWindow {
   win: Electron.BrowserWindow | null;
@@ -22,6 +23,7 @@ export class MainWindow {
     if (item.checked !== val) {
       item.checked = val;
     }
+    this.win.webContents.send(events.MAIN.SEND_ALWAYS_ON_TOP, val);
     this.win.setAlwaysOnTop(val);
   }
 
@@ -38,6 +40,12 @@ export class MainWindow {
     }));
     this.win.on('closed', () => {
       this.win = null;
+    });
+   this.win.webContents.on('did-finish-load', () => {
+      if (!this.win) return;
+      this.win.webContents.send(events.MAIN.REQUEST_ALWAYS_ON_TOP);
+      ipcMain.once(events.RENDERER.SEND_ALWAYS_ON_TOP,
+        (e: Electron.IpcMessageEvent, val: boolean) => this.alwaysOnTop = val);
     });
     this.win.webContents.openDevTools();
   }

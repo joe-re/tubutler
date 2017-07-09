@@ -43,20 +43,20 @@ function createWindowMenu(mainWindow: MainWindow): Electron.MenuItemConstructorO
       }
     }
   ]);
-  return { label: "Window", submenu: subMenu };
+  return { label: 'Window', submenu: subMenu };
 }
 
 function createAppMenu(): Electron.MenuItemConstructorOptions {
   return {
     label: app.getName(),
     submenu: [
-      { role: "about" },
-      { type: "separator" },
-      { role: "hide" },
-      { role: "hideothers" },
-      { role: "unhide" },
-      { type: "separator" },
-      { role: "quit" }
+      { role: 'about' },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideothers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
     ],
   }
 }
