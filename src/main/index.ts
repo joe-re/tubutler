@@ -1,27 +1,11 @@
 import { app, BrowserWindow } from 'electron';
-import path from 'path';
-import url from 'url';
 import setupMenu from './setupMenu';
+import createMainWindow, { MainWindow } from './createMainWindow';
 
-let win: Electron.BrowserWindow | null;
-
-function createWindow () {
-  win = new BrowserWindow({width: 800, height: 600, alwaysOnTop: true})
-
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, '../index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
-  win.webContents.openDevTools();
-  win.on('closed', () => {
-    win = null;
-  })
-}
-
+let mainWindow: MainWindow;
 app.on('ready', () => {
-  createWindow();
-  setupMenu();
+  mainWindow = createMainWindow();
+  setupMenu(mainWindow);
 });
 
 app.on('window-all-closed', () => {
@@ -31,7 +15,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-  if (win === null) {
-    createWindow()
+  if (!mainWindow.isExists()) {
+    mainWindow.createWindow();
   }
 })

@@ -1,4 +1,5 @@
-import { app, Menu, BrowserWindow } from "electron";
+import { app, Menu, ipcMain  } from 'electron';
+import { MainWindow } from './createMainWindow';
 
 function createViewMenu(): Electron.MenuItemConstructorOptions {
   return {
@@ -18,7 +19,7 @@ function createViewMenu(): Electron.MenuItemConstructorOptions {
   }
 };
 
-function createWindowMenu(): Electron.MenuItemConstructorOptions {
+function createWindowMenu(mainWindow: MainWindow): Electron.MenuItemConstructorOptions {
   let subMenu: Electron.MenuItemConstructorOptions[] = process.platform === 'darwin' ?
     [
       { role: 'close' },
@@ -33,9 +34,16 @@ function createWindowMenu(): Electron.MenuItemConstructorOptions {
     ];
   subMenu = subMenu.concat([
     { type: 'separator' },
-    { label: 'Always on Top', checked: true, click: (item, focusWindow) => console.log(item) }
+    {
+      label: 'Always on Top',
+      type: 'checkbox',
+      checked: false,
+      click: (item, focusWindow) => {
+        mainWindow.alwaysOnTop = item.checked;
+      }
+    }
   ]);
-  return { label: "window", submenu: subMenu };
+  return { label: "Window", submenu: subMenu };
 }
 
 function createAppMenu(): Electron.MenuItemConstructorOptions {
@@ -50,13 +58,13 @@ function createAppMenu(): Electron.MenuItemConstructorOptions {
       { type: "separator" },
       { role: "quit" }
     ],
-  }k
+  }
 }
 
-function setAppMenu() {
+function setAppMenu(mainWindow: MainWindow) {
   const template: Electron.MenuItemConstructorOptions[] = [
     createViewMenu(),
-    createWindowMenu()
+    createWindowMenu(mainWindow)
   ];
   if (process.platform === 'darwin') {
     template.unshift(createAppMenu());

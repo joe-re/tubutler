@@ -4,6 +4,7 @@ import { mutations } from './mutations'
 import { actions } from './actions';
 import { FullItem } from '../types/Item';
 import getters, { TypedGetterTree } from './getters';
+import plugins from './plugins';
 
 export type State = {
   items: FullItem[],
@@ -27,7 +28,7 @@ interface StoreOptions<S, G> {
   strict?: boolean;
 }
 
-declare class TypedStore<S, G> extends Store<S> {
+export declare class TypedStore<S, G> extends Store<S> {
   constructor(options: StoreOptions<S, G>);
   readonly getters: G;
 }
@@ -43,7 +44,8 @@ const store = createStore({
   state,
   actions,
   mutations,
-  getters
+  getters,
+  plugins
 });
 
 export default store;
