@@ -9,6 +9,7 @@ function fetchList(params: FeatchListParams): Promise<SearchAPIResponse> {
       url: `https://www.googleapis.com/youtube/v3/search`,
       parameters: {
         part: 'snippet',
+        order: 'viewCount',
         q: params.q,
         type: 'video',
         maxResults: 20
