@@ -2,7 +2,9 @@
   <div>
     <toolbar-header :actions="actions"></toolbar-header>
     <div class="page">
-      <video-list :items="state.items"></video-list>
+      <div class="video-list">
+        <video-list :items="state.items"></video-list>
+      </div>
     </div>
   </div>
 </template>
@@ -28,6 +30,9 @@ export default class Home extends Vue {
 </script>
 <style scoped>
  .page {
+   max-height: calc(100vh - 48px);
+ }
+ .video-list {
    overflow-y: scroll;
    max-height: calc(100vh - 48px);
  }

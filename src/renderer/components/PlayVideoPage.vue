@@ -66,30 +66,32 @@ export default class PlayVideoPage extends Vue {
 }
 </script>
 <style scoped>
- .page {
-   overflow-y: scroll;
-   max-height: calc(100vh - 48px);
- }
- .candidate-videos {
-   overflow-y: scroll;
-   height: calc(100vh - 100vw * 0.56 - 40px);
- }
- .next-video {
-   margin: 0 16px;
-   padding: 16px 0;
-   border-bottom: 1px solid #bbb;
- }
- @media (min-width: 640px) {
-   .page {
-     display: flex;
-     flex-direction: row;
-   }
-   .player {
-     flex: 0.75;
-   }
-   .candidate-videos {
-     flex: 0.25;
-     height: calc(100vh - 40px);
-   }
- }
+.page {
+  max-height: calc(100vh - 48px);
+}
+
+.candidate-videos {
+  overflow-y: scroll;
+  height: calc(100vh - 100vw * 0.56 - 40px);
+}
+
+.next-video {
+  margin: 0 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #bbb;
+}
+
+@media (min-width: 640px) {
+  .page {
+    display: flex;
+    flex-direction: row;
+  }
+  .player {
+    flex: 0.75;
+  }
+  .candidate-videos {
+    flex: 0.25;
+    height: calc(100vh - 40px);
+  }
+}
 </style>

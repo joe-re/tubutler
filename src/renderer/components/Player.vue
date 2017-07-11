@@ -29,7 +29,7 @@ export default class Player extends Vue {
   }
 
   mounted() {
-    this.player = YoutubePlayer('player', { videoId: this.id });
+    this.player = YoutubePlayer('player', { videoId: this.id, playerVars: { autoplay: 1, rel: 0 }});
     this.player.on('stateChange', (event: any) => {
       if (event.data === 0 && this.nextId) {
         this.play(this.nextId);
@@ -46,14 +46,15 @@ export default class Player extends Vue {
 </script>
 
 <style>
+#player {
+  width: 100vw;
+  height: calc(100vw * 0.56);
+}
+
+@media (min-width: 640px) {
   #player {
-    width: 100vw;
-    height: calc(100vw * 0.56);
+    width: 75vw;
+    height: calc(75vw * 0.56);
   }
-  @media (min-width: 640px) {
-    #player {
-      width: 75vw;
-      height: calc(75vw * 0.56);
-   }
- }
+}
 </style>
