@@ -2,12 +2,16 @@
   <div>
     <toolbar-header :actions="actions"></toolbar-header>
     <div class="page">
-      <player :id="videoId" :nextId="nextVideoId" :actions="actions"></player>
-      <div class="next-video">
-        <div>Up Next</div>
-        <thumbnail v-if="nextVideo" :item="nextVideo"></thumbnail>
+      <div class="player">
+        <player :id="videoId" :nextId="nextVideoId" :actions="actions"></player>
       </div>
-      <video-list :items="relatedVideos"></video-list>
+      <div class="candidate-videos">
+        <div class="next-video">
+          <div>Up Next</div>
+          <thumbnail v-if="nextVideo" :item="nextVideo"></thumbnail>
+        </div>
+        <video-list :items="relatedVideos"></video-list>
+      </div>
     </div>
   </div>
 </template>
@@ -66,9 +70,26 @@ export default class PlayVideoPage extends Vue {
    overflow-y: scroll;
    max-height: calc(100vh - 48px);
  }
+ .candidate-videos {
+   overflow-y: scroll;
+   height: calc(100vh - 100vw * 0.56 - 40px);
+ }
  .next-video {
    margin: 0 16px;
    padding: 16px 0;
    border-bottom: 1px solid #bbb;
+ }
+ @media (min-width: 640px) {
+   .page {
+     display: flex;
+     flex-direction: row;
+   }
+   .player {
+     flex: 0.75;
+   }
+   .candidate-videos {
+     flex: 0.25;
+     height: calc(100vh - 40px);
+   }
  }
 </style>

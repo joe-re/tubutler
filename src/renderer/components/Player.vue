@@ -50,4 +50,10 @@ export default class Player extends Vue {
     width: 100vw;
     height: calc(100vw * 0.56);
   }
+  @media (min-width: 640px) {
+    #player {
+      width: 75vw;
+      height: calc(75vw * 0.56);
+   }
+ }
 </style>

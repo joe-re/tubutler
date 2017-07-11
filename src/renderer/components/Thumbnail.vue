@@ -65,7 +65,7 @@ export default class Thumbnail extends Vue {
     display: flex;
   }
   img {
-    width: 200px;
+    width: 100px;
     margin-right: 16px;
     cursor: pointer;
   }

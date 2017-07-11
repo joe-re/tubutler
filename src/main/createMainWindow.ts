@@ -47,7 +47,7 @@ export class MainWindow {
       ipcMain.once(events.RENDERER.SEND_ALWAYS_ON_TOP,
         (e: Electron.IpcMessageEvent, val: boolean) => this.alwaysOnTop = val);
     });
-    this.win.webContents.openDevTools();
+    // this.win.webContents.openDevTools();
   }
 
   private get alwaysOnTopMenu() {
