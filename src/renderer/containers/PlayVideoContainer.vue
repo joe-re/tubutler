@@ -8,16 +8,20 @@ import Component from 'vue-class-component'
 import SearchInput from "./SearchInput.vue";
 import PlayVideoPage from '../components/PlayVideoPage.vue'
 import store from '../store';
-import getActions from './getActions';
 import VueRouter from 'vue-router';
+import inject from './inject'
+import { actions } from '../store/actions';
 
 @Component({
-  components: { "play-video-page": PlayVideoPage }
+  components: { "play-video-page": PlayVideoPage },
+  props: {
+    actions: { type: Object, required: true },
+    state: { type: Object, required: true },
+    getters: { type: Object, required: true }
+  }
 })
 export default class PlayVideoContainer extends Vue {
-  state = store.state;
-  actions = getActions();
-  getters = store.getters;
+  actions: typeof actions;
   mounted() {
     this.actions.fetchRelatedVideos({ videoId: this.id });
   }

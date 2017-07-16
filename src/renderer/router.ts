@@ -2,12 +2,14 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from './containers/HomeContainer.vue';
 import PlayVideo from './containers/PlayVideoContainer.vue';
+import store from './store/index';
+import inject from './containers/inject';
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/:id', component: PlayVideo }
+  { path: '/', component: inject(Home, store) },
+  { path: '/:id', component: inject(PlayVideo, store) }
 ];
 
 export default new VueRouter({ routes });

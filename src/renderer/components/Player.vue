@@ -6,7 +6,7 @@
 import YoutubePlayer from 'youtube-player';
 import { FullItem } from '../types/Item';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { Actions } from '../containers/getActions';
+import { actions } from '../store/actions';
 
 @Component
 export default class Player extends Vue {
@@ -17,7 +17,7 @@ export default class Player extends Vue {
   nextId?: string;
 
   @Prop({ type: Object, required: true })
-  actions: Actions;
+  actions: typeof actions;
 
   player: any;
 

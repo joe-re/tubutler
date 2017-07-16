@@ -11,7 +11,7 @@ export default async function deserializeJSONResponse<T>(
   } catch (e) {
     if (e.json) {
       const errResponse = await e.json();
-      return Promise.reject(errResponse);
+      return Promise.reject(new Error(errResponse));
     }
     return Promise.reject(e);
   }

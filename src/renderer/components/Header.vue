@@ -9,7 +9,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component'
-import { Actions } from '../containers/getActions';
+import { actions } from '../store/actions';
 
 @Component({
   props: {
@@ -21,7 +21,7 @@ import { Actions } from '../containers/getActions';
 })
 export default class Header extends Vue {
   text: string = "";
-  actions: Actions;
+  actions: typeof actions;
   search(e: MouseEvent) {
     if (this.$router.currentRoute.path === '/') {
       this.actions.search({ q: this.text });

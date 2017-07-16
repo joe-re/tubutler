@@ -1,8 +1,8 @@
 import SearchAPI from '../api_utils/SearchAPI';
 import VideoAPI from '../api_utils/VideoAPI';
 import { FullItem } from '../types/Item';
-import { createActions } from './TypedActions';
 import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';
+import { Dispatch, Commit, ActionContext, Action, ActionTree, CommitOptions } from 'vuex';
 
 export type SearchActions = {
   SEARCH_RESOLVED: {
@@ -10,7 +10,6 @@ export type SearchActions = {
     videoAPIResponse: VideoAPIResponse
   },
   SEARCH_REJECTED: { message: string },
-
   SEARCH_RELATED_VIDEOS_RESOLVED: {
     searchAPIResponse: SearchAPIResponse,
     videoAPIResponse: VideoAPIResponse
@@ -18,34 +17,91 @@ export type SearchActions = {
   SEARCH_RELATED_VIDEOS_REJECTED: { message: string },
   ADD_HISTORY: { videoId: string }
 }
-const ActionNames = [
-  'SEARCH_RESOLVED',
-  'SEARCH_REJECTED',
-  'SEARCH_RELATED_VIDEOS_RESOLVED',
-  'SEARCH_RELATED_VIDEOS_REJECTED',
-  'ADD_HISTORY'
-];
 
-export const actions = createActions<null, null, SearchActions>({
-  search: async ({ typedCommit }, payload: { q: string }) => {
-    try {
-      const searchAPIResponse = await SearchAPI.fetchList({ q: payload.q });
-      const videoAPIResponse = await VideoAPI.fetchVideos({ ids: searchAPIResponse.items.map(item => item.id.videoId) });
-      typedCommit.SEARCH_RESOLVED({ searchAPIResponse, videoAPIResponse });
-    } catch (e) {
-      typedCommit.SEARCH_REJECTED({ message: e.message || '' });
+type TypedCommit<T, P> = (type: T, payload: P) => void;
+
+interface TypedActionContext<S, R, A> {
+  dispatch: Dispatch;
+  commit: <K extends keyof A>(params: { type: K, payload: A[K] }) => void,
+  state: S;
+  getters: any;
+  rootState: R;
+  rootGetters: any;
+}
+
+type TypedAction<S, R, A, P> = (payload: P) =>
+ (injectee: TypedActionContext<S, R, A>) => any;
+
+export type TypedActionTree<S, R, A, AC> = {
+  [P in keyof AC]: TypedAction<S, R, A, AC[P]>;
+};
+
+type TypedMutation<S, P> = (state: S, payload: P) => any;
+type TypedMutationTree<S, A> = {
+  [P in keyof A]: TypedMutation<S, A[P]>;
+};
+export function createMutations<S, A>(params: TypedMutationTree<S, A>) {
+  let obj: any = {};
+  Object.keys(params).forEach(k => {
+    obj[k] = (state: S, payload: any) =>
+      params[k](state, payload.payload)
+  });
+  return obj;
+}
+
+function createActions<S, R, A, AC>(params: TypedActionTree<S, R, A, AC>): TypedActionTree<S, R, A, AC> {
+  let obj: any = {};
+  Object.keys(params).forEach(k => {
+    obj[k] = (actionContext: any, payload: any) => {
+      (params as any)[k](payload)(actionContext)
+    }
+  });
+  return obj;
+}
+
+export type ActionCreators = {
+  search: { q: string },
+  fetchRelatedVideos: { videoId: string },
+  addHistory: { videoId: string }
+}
+
+export const actions = createActions<null, null, SearchActions, ActionCreators>({
+  search: (payload: { q: string }) => {
+    return async ({ commit }) => {
+      try {
+        const searchAPIResponse = await SearchAPI.fetchList({ q: payload.q });
+        const videoAPIResponse = await VideoAPI.fetchVideos({ ids: searchAPIResponse.items.map(item => item.id.videoId) });
+        commit({
+          type: 'SEARCH_RESOLVED',
+          payload: { searchAPIResponse, videoAPIResponse }
+        });
+      } catch (e) {
+      }
     }
   },
-  fetchRelatedVideos: async ({ typedCommit }, payload: { videoId: string }) => {
-    try {
-      const searchAPIResponse = await SearchAPI.fetchRelatedVideos({ videoId: payload.videoId });
-      const videoAPIResponse = await VideoAPI.fetchVideos({ ids: searchAPIResponse.items.map(item => item.id.videoId) });
-      typedCommit.SEARCH_RELATED_VIDEOS_RESOLVED({ searchAPIResponse, videoAPIResponse });
-    } catch (e) {
-      typedCommit.SEARCH_RELATED_VIDEOS_REJECTED({ message: e.message || '' });
+  fetchRelatedVideos: (payload: { videoId: string }) => {
+    return async ({ commit }) => {
+      try {
+        const searchAPIResponse = await SearchAPI.fetchRelatedVideos({ videoId: payload.videoId });
+        const videoAPIResponse = await VideoAPI.fetchVideos({ ids: searchAPIResponse.items.map(item => item.id.videoId) });
+        commit({
+          type: 'SEARCH_RELATED_VIDEOS_RESOLVED',
+          payload: { searchAPIResponse, videoAPIResponse }
+        });
+      } catch (e) {
+        commit({
+          type: 'SEARCH_RELATED_VIDEOS_REJECTED',
+          payload: { message: e.message || '' }
+        });
+      }
     }
   },
-  addHistory: ({ typedCommit }, payload: { videoId: string }) => {
-    typedCommit.ADD_HISTORY({ videoId: payload.videoId });
+  addHistory: (payload: { videoId: string }) => {
+    return ({ commit }) => {
+      commit({
+        type: 'ADD_HISTORY',
+        payload: { videoId: payload.videoId }
+      });
+    }
   }
-}, ActionNames);
+});

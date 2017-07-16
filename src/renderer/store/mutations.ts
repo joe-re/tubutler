@@ -1,5 +1,5 @@
 import { SearchActions } from './actions';
-import { createMutations } from './TypedActions';
+import { createMutations } from './actions';
 import { FullItem } from '../types/Item';
 import { State } from './index';
 import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';

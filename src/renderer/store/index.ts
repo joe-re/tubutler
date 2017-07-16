@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import Vuex, { ActionTree, MutationTree, Plugin, ModuleTree, Store } from 'vuex'
+import Vuex, { MutationTree, Plugin, ModuleTree, Store } from 'vuex'
+import { TypedActionTree, SearchActions, ActionCreators } from './actions';
 import { mutations } from './mutations'
 import { actions } from './actions';
 import { FullItem } from '../types/Item';
@@ -21,7 +22,7 @@ export const state: State = {
 interface StoreOptions<S, G> {
   state?: S;
   getters?: TypedGetterTree<S, S, G>;
-  actions?: ActionTree<S, S>;
+  actions?: TypedActionTree<S, S, SearchActions, ActionCreators>;
   mutations?: MutationTree<S>;
   modules?: ModuleTree<S>;
   plugins?: Plugin<S>[];
@@ -49,28 +50,3 @@ const store = createStore({
 });
 
 export default store;
-
-// memo: type inferrence isn't work well. example is bellow.
-// type State3 = { value: number };
-// type Getters3 = { count: number, plus10: number };
-// const store3 = createStore({
-//   state: {
-//     value: 0
-//   },
-//   getters: {
-//     count: state => state.value,
-//     plus10: (_, { count }) => count + 10
-//   },
-//   actions: {
-//     foo({ state, getters, dispatch, commit }, payload) {
-//       state.value;
-//       getters.count;
-//       dispatch("bar", {});
-//       commit("bar", {});
-//     }
-//   },
-//   mutations: {
-//     bar(state, payload) { }
-//   },
-//   strict: true
-// }
