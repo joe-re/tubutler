@@ -15,7 +15,8 @@ export type SearchActions = {
     videoAPIResponse: VideoAPIResponse
   },
   SEARCH_RELATED_VIDEOS_REJECTED: { message: string },
-  ADD_HISTORY: { videoId: string }
+  ADD_HISTORY: { videoId: string },
+  SET_MIN_PLAYER_MODE: { val: boolean }
 }
 
 type TypedCommit<T, P> = (type: T, payload: P) => void;
@@ -38,13 +39,13 @@ export type TypedActionTree<S, R, A, AC> = {
 
 type TypedMutation<S, P> = (state: S, payload: P) => any;
 type TypedMutationTree<S, A> = {
-  [P in keyof A]: TypedMutation<S, A[P]>;
+  [P in keyof A]?: TypedMutation<S, A[P]>;
 };
 export function createMutations<S, A>(params: TypedMutationTree<S, A>) {
   let obj: any = {};
   Object.keys(params).forEach(k => {
     obj[k] = (state: S, payload: any) =>
-      params[k](state, payload.payload)
+      (params[k] as any)(state, payload.payload)
   });
   return obj;
 }
@@ -62,7 +63,8 @@ function createActions<S, R, A, AC>(params: TypedActionTree<S, R, A, AC>): Typed
 export type ActionCreators = {
   search: { q: string },
   fetchRelatedVideos: { videoId: string },
-  addHistory: { videoId: string }
+  addHistory: { videoId: string },
+  setMinPlayerMode: { val: boolean }
 }
 
 export const actions = createActions<null, null, SearchActions, ActionCreators>({
@@ -103,5 +105,10 @@ export const actions = createActions<null, null, SearchActions, ActionCreators>(
         payload: { videoId: payload.videoId }
       });
     }
+  },
+  setMinPlayerMode: (payload) => {
+    return ({ commit }) => {
+      commit({ type: 'SET_MIN_PLAYER_MODE', payload: { val: payload.val } });
+    };
   }
 });

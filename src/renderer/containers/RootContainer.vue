@@ -16,5 +16,6 @@ import RootPage from '../components/RootPage.vue'
   }
 })
 export default class RootContainer extends Vue {
+
 }
 </script>

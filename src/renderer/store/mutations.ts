@@ -29,5 +29,8 @@ export const mutations = createMutations<State, SearchActions>({
     if (!state.playedVedeoIds.find(id => id === payload.videoId)) {
       state.playedVedeoIds = [payload.videoId].concat(state.playedVedeoIds).slice(0, 19);
     }
+  },
+  ['SET_MIN_PLAYER_MODE'](state, payload) {
+    state.minPlayerMode = payload.val;
   }
 });

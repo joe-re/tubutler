@@ -11,7 +11,7 @@ import { actions } from '../store/actions';
 @Component
 export default class Player extends Vue {
   @Prop({ type: String, required: true })
-  id: string;
+  id?: string;
 
   @Prop({ type: String })
   nextId?: string;
@@ -29,7 +29,11 @@ export default class Player extends Vue {
   }
 
   mounted() {
-    this.player = YoutubePlayer('player', { videoId: this.id, playerVars: { autoplay: 1, rel: 0 }});
+    if (this.id) {
+      this.player = YoutubePlayer('player', { videoId: this.id, playerVars: { autoplay: 1, rel: 0 }});
+    } else {
+      this.player = YoutubePlayer('player', { playerVars: { autoplay: 1, rel: 0 }});
+    }
     this.player.on('stateChange', (event: any) => {
       if (event.data === 0 && this.nextId) {
         this.play(this.nextId);
@@ -44,17 +48,3 @@ export default class Player extends Vue {
   }
 }
 </script>
-
-<style>
-#player {
-  width: 100vw;
-  height: calc(100vw * 0.56);
-}
-
-@media (min-width: 640px) {
-  #player {
-    width: 75vw;
-    height: calc(75vw * 0.56);
-  }
-}
-</style>

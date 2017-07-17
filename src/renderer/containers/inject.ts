@@ -10,7 +10,6 @@ export default function inject<S, G>(container: any, store: TypedStore<S, G>) {
     p[c] = (payload: any) => store.dispatch(c, payload);
     return p;
   }, {});
-  console.log(container.options);
   return {
     name: `injected-${name}`,
     components: {

@@ -4,14 +4,13 @@
        v-for="item in items"
        :key="item.id"
      >
-       <thumbnail class="thumbnail" :item="item"></thumbnail>
+       <thumbnail class="thumbnail" :item="item" :min-player-mode="minPlayerMode"></thumbnail>
      </div>
    </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from 'vue-class-component'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { FullItem } from '../types/Item';
 import Thumbnail from './Thumbnail.vue';
 
@@ -24,8 +23,12 @@ import Thumbnail from './Thumbnail.vue';
   }
  })
 export default class SearchInput extends Vue {
-  items: FullItem[]
-  text: string = "";
+  @Prop({ type: Boolean })
+  minPlayerMode: boolean;
+  @Prop({ type: Array, required: true})
+  items: FullItem[];
+
+  text: string = ""
 }
 </script>
 

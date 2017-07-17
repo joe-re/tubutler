@@ -2,12 +2,21 @@
   <div>
     <div class="play-video-page">
       <div class="player">
-        <player :id="videoId" :nextId="nextVideoId" :actions="actions"></player>
+        <player
+          :id="videoId"
+          :nextId="nextVideoId"
+          :actions="actions"
+          :minPlayerMode="minPlayerMode"
+        > </player>
       </div>
       <div class="candidate-videos">
         <div class="next-video">
           <div>Up Next</div>
-          <thumbnail v-if="nextVideo" :item="nextVideo"></thumbnail>
+          <thumbnail
+            v-if="nextVideo"
+            :item="nextVideo"
+            :minPlayerMode="minPlayerMode"
+          ></thumbnail>
         </div>
         <video-list :items="relatedVideos"></video-list>
       </div>
@@ -60,6 +69,10 @@ export default class PlayVideoPage extends Vue {
   get relatedVideos() {
     return this.getters.relatedVideos;
   }
+
+  get minPlayerMode() {
+    return this.state.minPlayerMode;
+  }
 }
 </script>
 <style scoped>
@@ -74,6 +87,7 @@ export default class PlayVideoPage extends Vue {
   border-bottom: 1px solid #bbb;
 }
 
+
 @media (min-width: 640px) {
   .play-video-page {
     display: flex;
@@ -85,6 +99,20 @@ export default class PlayVideoPage extends Vue {
   .candidate-videos {
     flex: 0.25;
     height: calc(100vh - 40px);
+  }
+}
+</style>
+
+<style>
+.play-video-page #player {
+  width: 100vw;
+  height: calc(100vw * 0.56);
+}
+
+@media (min-width: 640px) {
+  .play-video-page #player {
+    width: 75vw;
+    height: 100vh;
   }
 }
 </style>

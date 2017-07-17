@@ -25,19 +25,15 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { FullItem } from '../types/Item';
+import { State } from '../store';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
-@Component({
-  props: {
-    item: {
-      type: Object,
-      required: true
-    }
-  }
- })
+@Component({ })
 export default class Thumbnail extends Vue {
+  @Prop({ type: Boolean })
+  minPlayerMode: boolean;
   @Prop({ type: Object, required: true})
-  item: FullItem
+  item: FullItem;
 
   get title() {
     return this.item.snippet.title;
@@ -55,6 +51,9 @@ export default class Thumbnail extends Vue {
     return distanceInWordsToNow(new Date(this.item.snippet.publishedAt));
   }
   get link() {
+    if (this.minPlayerMode) {
+      return `/min-player/${this.item.id.videoId}`;
+    }
     return `/${this.item.id.videoId}`;
   }
 }

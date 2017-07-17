@@ -41,6 +41,14 @@ function createWindowMenu(mainWindow: MainWindow): Electron.MenuItemConstructorO
       click: (item, focusWindow) => {
         mainWindow.alwaysOnTop = item.checked;
       }
+    },
+    {
+      label: 'Min Player Mode',
+      type: 'checkbox',
+      checked: false,
+      click: (item, focusWindow) => {
+        mainWindow.minPlayerMode = item.checked;
+      }
     }
   ]);
   return { label: 'Window', submenu: subMenu };

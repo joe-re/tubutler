@@ -10,13 +10,15 @@ import plugins from './plugins';
 export type State = {
   items: FullItem[],
   relatedVideos: FullItem[],
-  playedVedeoIds: string[]
+  playedVedeoIds: string[],
+  minPlayerMode: boolean
 }
 
 export const state: State = {
   items: [],
   relatedVideos: [],
-  playedVedeoIds: []
+  playedVedeoIds: [],
+  minPlayerMode: false
 }
 
 interface StoreOptions<S, G> {
