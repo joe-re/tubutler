@@ -1,20 +1,20 @@
 <template>
-  <home :actions="actions" :state="state"></home>
+  <root-page :actions="actions" :state="state"></root-page>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from 'vue-class-component'
-import Home from '../components/Home.vue'
+import RootPage from '../components/RootPage.vue'
 
 @Component({
-  components: { "home": Home },
+  components: { "root-page": RootPage },
   props: {
     actions: { type: Object, required: true },
     state: { type: Object, required: true },
     getters: { type: Object, required: true }
   }
 })
-export default class HomeContainer extends Vue {
+export default class RootContainer extends Vue {
 }
 </script>

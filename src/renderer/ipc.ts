@@ -1,4 +1,4 @@
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, remote } from 'electron';
 import events from '../constants/ipcEvents';
 
 export default class IPC {
@@ -15,6 +15,10 @@ export default class IPC {
   listenStart() {
     ipcRenderer.on(events.MAIN.REQUEST_ALWAYS_ON_TOP, this.sendALwaysOnTop);
     ipcRenderer.on(events.MAIN.SEND_ALWAYS_ON_TOP, (e: Electron.IpcMessageEvent, val: boolean) => this.saveAlwaysOnTop(val));
+    remote.getCurrentWindow().on('close', () => {
+      ipcRenderer.removeAllListeners(events.MAIN.REQUEST_ALWAYS_ON_TOP);
+      ipcRenderer.removeAllListeners(events.MAIN.SEND_ALWAYS_ON_TOP);
+    });
   }
 
   sendALwaysOnTop() {

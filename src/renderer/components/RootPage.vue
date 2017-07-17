@@ -1,17 +1,18 @@
 <template>
-  <div class="video-list">
-    <video-list :items="state.items"></video-list>
+  <div class="page">
+    <toolbar-header :actions="actions"></toolbar-header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from 'vue-class-component'
-import VideoList from "./VideoList.vue";
+import Header from "./Header.vue";
 
 @Component({
   components: {
-    "video-list": VideoList
+    "toolbar-header": Header,
   },
   props: {
     actions: Object,
@@ -22,8 +23,7 @@ export default class Home extends Vue {
 }
 </script>
 <style scoped>
- .video-list {
-   overflow-y: scroll;
+ .page {
    max-height: calc(100vh - 48px);
  }
 </style>

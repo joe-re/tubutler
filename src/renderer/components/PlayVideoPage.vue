@@ -1,7 +1,6 @@
 <template>
   <div>
-    <toolbar-header :actions="actions"></toolbar-header>
-    <div class="page">
+    <div class="play-video-page">
       <div class="player">
         <player :id="videoId" :nextId="nextVideoId" :actions="actions"></player>
       </div>
@@ -19,7 +18,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component'
-import Header from './Header.vue';
 import Player from './Player.vue';
 import { State } from '../store';
 import VideoList from './VideoList.vue';
@@ -28,7 +26,6 @@ import { Getters } from '../store/getters';
 
 @Component({
   components: {
-    "toolbar-header": Header,
     "player": Player,
     "video-list": VideoList,
     "thumbnail": Thumbnail
@@ -66,10 +63,6 @@ export default class PlayVideoPage extends Vue {
 }
 </script>
 <style scoped>
-.page {
-  max-height: calc(100vh - 48px);
-}
-
 .candidate-videos {
   overflow-y: scroll;
   height: calc(100vh - 100vw * 0.56 - 40px);
@@ -82,7 +75,7 @@ export default class PlayVideoPage extends Vue {
 }
 
 @media (min-width: 640px) {
-  .page {
+  .play-video-page {
     display: flex;
     flex-direction: row;
   }
