@@ -3,15 +3,15 @@
 </template>
 
 <script lang="ts">
-import MinPlayer from '../components/MinPlayerPage.vue'
+import miniPlayer from '../components/miniPlayerPage.vue'
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { actions } from '../store/actions';
 import { remote } from 'electron';
 
 @Component({
-  components: { "min-player": MinPlayer }
+  components: { "min-player": miniPlayer }
 })
-export default class MinPlayerContainer extends Vue {
+export default class miniPlayerContainer extends Vue {
   @Prop({ type: Object, required: true })
   actions: typeof actions;
 

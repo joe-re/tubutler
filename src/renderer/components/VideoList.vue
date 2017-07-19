@@ -4,7 +4,7 @@
        v-for="item in items"
        :key="item.id"
      >
-       <thumbnail class="thumbnail" :item="item" :min-player-mode="minPlayerMode"></thumbnail>
+       <thumbnail class="thumbnail" :item="item" :min-player-mode="miniPlayerMode"></thumbnail>
      </div>
    </div>
 </template>
@@ -24,7 +24,7 @@ import Thumbnail from './Thumbnail.vue';
  })
 export default class SearchInput extends Vue {
   @Prop({ type: Boolean })
-  minPlayerMode: boolean;
+  miniPlayerMode: boolean;
   @Prop({ type: Array, required: true})
   items: FullItem[];
 

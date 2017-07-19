@@ -2,7 +2,7 @@
   <div class="video-list">
     <video-list
       :items="state.items"
-      :minPlayerMode="minPlayerMode"
+      :miniPlayerMode="miniPlayerMode"
     ></video-list>
   </div>
 </template>
@@ -23,8 +23,8 @@ export default class Home extends Vue {
   @Prop({ type: Object, required: true })
   state: State;
 
-  get minPlayerMode() {
-    return this.state.minPlayerMode;
+  get miniPlayerMode() {
+    return this.state.miniPlayerMode;
   }
 }
 </script>

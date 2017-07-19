@@ -22,11 +22,11 @@ import ipc from '../ipc';
 })
 export default class Home extends Vue {
   mounted() {
-    ipc.getInstance().addListener('onChangeMinPlayer', this.changePlayerMode);
+    ipc.getInstance().addListener('onChangeminiPlayer', this.changePlayerMode);
   }
 
   beforeDestroy() {
-    ipc.getInstance().removeListener('onChangeMinPlayer', this.changePlayerMode)
+    ipc.getInstance().removeListener('onChangeminiPlayer', this.changePlayerMode)
   }
 
   changePlayerMode(val: boolean) {

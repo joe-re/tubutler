@@ -6,7 +6,7 @@
           :id="videoId"
           :nextId="nextVideoId"
           :actions="actions"
-          :minPlayerMode="minPlayerMode"
+          :miniPlayerMode="miniPlayerMode"
         > </player>
       </div>
       <div class="candidate-videos">
@@ -15,7 +15,7 @@
           <thumbnail
             v-if="nextVideo"
             :item="nextVideo"
-            :minPlayerMode="minPlayerMode"
+            :miniPlayerMode="miniPlayerMode"
           ></thumbnail>
         </div>
         <video-list :items="relatedVideos"></video-list>
@@ -70,8 +70,8 @@ export default class PlayVideoPage extends Vue {
     return this.getters.relatedVideos;
   }
 
-  get minPlayerMode() {
-    return this.state.minPlayerMode;
+  get miniPlayerMode() {
+    return this.state.miniPlayerMode;
   }
 }
 </script>

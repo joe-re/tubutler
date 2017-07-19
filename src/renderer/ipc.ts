@@ -16,20 +16,20 @@ export default class IPC extends EventEmitter {
   listenStart() {
     ipcRenderer.on(events.MAIN.REQUEST_ALWAYS_ON_TOP, this.sendALwaysOnTop);
     ipcRenderer.on(events.MAIN.SEND_ALWAYS_ON_TOP, (e: Electron.IpcMessageEvent, val: boolean) => this.saveAlwaysOnTop(val));
-    ipcRenderer.on(events.MAIN.REQUEST_MIN_PLAYER_MODE, this.sendMinPlayerMode);
-    ipcRenderer.on(events.MAIN.SEND_MIN_PLAYER_MODE, (e: Electron.IpcMessageEvent, val: boolean) => {
+    ipcRenderer.on(events.MAIN.REQUEST_MINI_PLAYER_MODE, this.sendminiPlayerMode);
+    ipcRenderer.on(events.MAIN.SEND_MINI_PLAYER_MODE, (e: Electron.IpcMessageEvent, val: boolean) => {
       if (val) {
         remote.getCurrentWindow().setMaximumSize(700, 392);
       } else {
         remote.getCurrentWindow().setMaximumSize(9999, 9999);
       }
-      this.saveMinPlayerMode(val);
-      this.emit('onChangeMinPlayer', val);
+      this.saveminiPlayerMode(val);
+      this.emit('onChangeminiPlayer', val);
     });
     remote.getCurrentWindow().on('close', () => {
       ipcRenderer.removeAllListeners(events.MAIN.REQUEST_ALWAYS_ON_TOP);
       ipcRenderer.removeAllListeners(events.MAIN.SEND_ALWAYS_ON_TOP);
-      ipcRenderer.removeAllListeners(events.MAIN.SEND_MIN_PLAYER_MODE);
+      ipcRenderer.removeAllListeners(events.MAIN.SEND_MINI_PLAYER_MODE);
     });
   }
 
@@ -42,13 +42,13 @@ export default class IPC extends EventEmitter {
     window.localStorage.setItem('ALWAYS_ON_TOP', JSON.stringify(val));
   }
 
-  private sendMinPlayerMode() {
+  private sendminiPlayerMode() {
     const val = JSON.parse(window.localStorage.getItem('MIN_PLAYER_MODE') || 'false');
-    store.dispatch('setMinPlayerMode', { val });
-    ipcRenderer.send(events.RENDERER.SEND_MIN_PLAYER_MODE, val);
+    store.dispatch('setminiPlayerMode', { val });
+    ipcRenderer.send(events.RENDERER.SEND_MINI_PLAYER_MODE, val);
   }
 
-  private saveMinPlayerMode(val: boolean) {
+  private saveminiPlayerMode(val: boolean) {
     window.localStorage.setItem('MIN_PLAYER_MODE', JSON.stringify(val));
   }
 }

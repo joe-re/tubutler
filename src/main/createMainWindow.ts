@@ -27,20 +27,20 @@ export class MainWindow {
     this.win.setAlwaysOnTop(val);
   }
 
-  get minPlayerMode() {
+  get miniPlayerMode() {
     const item = this.findMenuItem('Window', 'Min Player Mode');;
     if (!item) return false;
     return item.checked;
   }
 
-  set minPlayerMode(val: boolean) {
+  set miniPlayerMode(val: boolean) {
     if (!this.win) return;
     const item = this.findMenuItem('Window', 'Min Player Mode');;
     if (!item) return;
     if (item.checked !== val) {
       item.checked = val;
     }
-    this.win.webContents.send(events.MAIN.SEND_MIN_PLAYER_MODE, val);
+    this.win.webContents.send(events.MAIN.SEND_MINI_PLAYER_MODE, val);
   }
 
   isExists() {
@@ -57,11 +57,11 @@ export class MainWindow {
     this.win.webContents.on('did-finish-load', () => {
       if (!this.win) return;
       this.win.webContents.send(events.MAIN.REQUEST_ALWAYS_ON_TOP);
-      this.win.webContents.send(events.MAIN.REQUEST_MIN_PLAYER_MODE);
+      this.win.webContents.send(events.MAIN.REQUEST_MINI_PLAYER_MODE);
       ipcMain.once(events.RENDERER.SEND_ALWAYS_ON_TOP,
         (e: Electron.IpcMessageEvent, val: boolean) => this.alwaysOnTop = val);
-      ipcMain.once(events.RENDERER.SEND_MIN_PLAYER_MODE,
-        (e: Electron.IpcMessageEvent, val: boolean) => this.minPlayerMode = val);
+      ipcMain.once(events.RENDERER.SEND_MINI_PLAYER_MODE,
+        (e: Electron.IpcMessageEvent, val: boolean) => this.miniPlayerMode = val);
     });
     this.win.on('closed', () => {
       this.win = null;

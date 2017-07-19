@@ -31,6 +31,6 @@ export const mutations = createMutations<State, SearchActions>({
     }
   },
   ['SET_MIN_PLAYER_MODE'](state, payload) {
-    state.minPlayerMode = payload.val;
+    state.miniPlayerMode = payload.val;
   }
 });

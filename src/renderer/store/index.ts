@@ -11,14 +11,14 @@ export type State = {
   items: FullItem[],
   relatedVideos: FullItem[],
   playedVedeoIds: string[],
-  minPlayerMode: boolean
+  miniPlayerMode: boolean
 }
 
 export const state: State = {
   items: [],
   relatedVideos: [],
   playedVedeoIds: [],
-  minPlayerMode: false
+  miniPlayerMode: false
 }
 
 interface StoreOptions<S, G> {

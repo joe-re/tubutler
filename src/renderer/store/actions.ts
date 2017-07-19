@@ -64,7 +64,7 @@ export type ActionCreators = {
   search: { q: string },
   fetchRelatedVideos: { videoId: string },
   addHistory: { videoId: string },
-  setMinPlayerMode: { val: boolean }
+  setminiPlayerMode: { val: boolean }
 }
 
 export const actions = createActions<null, null, SearchActions, ActionCreators>({
@@ -106,7 +106,7 @@ export const actions = createActions<null, null, SearchActions, ActionCreators>(
       });
     }
   },
-  setMinPlayerMode: (payload) => {
+  setminiPlayerMode: (payload) => {
     return ({ commit }) => {
       commit({ type: 'SET_MIN_PLAYER_MODE', payload: { val: payload.val } });
     };

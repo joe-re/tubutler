@@ -23,7 +23,7 @@ import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
     'toolbar-header': Header
   }
 })
-export default class MinPlayPage extends Vue {
+export default class miniPlayPage extends Vue {
   @Prop({ type: Object, required: true })
   actions: Object;
 

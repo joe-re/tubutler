@@ -31,7 +31,7 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 @Component({ })
 export default class Thumbnail extends Vue {
   @Prop({ type: Boolean })
-  minPlayerMode: boolean;
+  miniPlayerMode: boolean;
   @Prop({ type: Object, required: true})
   item: FullItem;
 
@@ -51,7 +51,7 @@ export default class Thumbnail extends Vue {
     return distanceInWordsToNow(new Date(this.item.snippet.publishedAt));
   }
   get link() {
-    if (this.minPlayerMode) {
+    if (this.miniPlayerMode) {
       return `/min-player/${this.item.id.videoId}`;
     }
     return `/${this.item.id.videoId}`;

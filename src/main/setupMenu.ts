@@ -43,11 +43,11 @@ function createWindowMenu(mainWindow: MainWindow): Electron.MenuItemConstructorO
       }
     },
     {
-      label: 'Min Player Mode',
+      label: 'Mini Player Mode',
       type: 'checkbox',
       checked: false,
       click: (item, focusWindow) => {
-        mainWindow.minPlayerMode = item.checked;
+        mainWindow.miniPlayerMode = item.checked;
       }
     }
   ]);
