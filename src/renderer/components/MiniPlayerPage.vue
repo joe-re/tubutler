@@ -2,9 +2,11 @@
   <div class="min-player-page" @mouseover="mouseOver" @mouseout="mouseOut">
     <toolbar-header
        class="header" ref="header" v-if="isEnableHeader" :actions="actions"></toolbar-header>
-    <div class="shortcuts" v-if="isShowShortcuts">
-      command + f : show/hide search bar
-    </div>
+   <transition name="fade">
+      <div class="shortcuts" v-if="isShowShortcuts">
+        command/ctrl + f : toggle search bar
+      </div>
+   </transition>
     <player :id="id" :nextId="nextVideoId" :actions="actions"></player>
   </div>
 </template>
@@ -81,5 +83,11 @@ export default class miniPlayPage extends Vue {
   right: 16px;
   top: 60px;
   border-radius: 6px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
 }
 </style>
