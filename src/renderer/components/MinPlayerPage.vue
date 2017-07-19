@@ -2,6 +2,9 @@
   <div class="min-player-page" @mouseover="mouseOver" @mouseout="mouseOut">
     <toolbar-header
        class="header" ref="header" v-if="isEnableHeader" :actions="actions"></toolbar-header>
+    <div class="shortcuts" v-if="isShowShortcuts">
+      command + f : show/hide search bar
+    </div>
     <player :id="id" :nextId="nextVideoId" :actions="actions"></player>
   </div>
 </template>
@@ -10,7 +13,9 @@
 import Player from './Player.vue';
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Getters } from '../store/getters';
-import Header from "./Header.vue";
+import Header from './Header.vue';
+import Mousetrap from 'mousetrap';
+import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 
 @Component({
   components: {
@@ -29,13 +34,26 @@ export default class MinPlayPage extends Vue {
   id?: string;
 
   isEnableHeader = false;
+  isShowShortcuts = false;
+
+  mounted() {
+    Mousetrap.bindGlobal('mod+f', () => this.toggleEnableHeader());
+  }
+
+  beforeDestroy() {
+    Mousetrap.unbind('mod+f');
+  }
 
   mouseOver() {
-    this.isEnableHeader = true;
+    this.isShowShortcuts = true;
   }
 
   mouseOut() {
-    this.isEnableHeader = false;
+    this.isShowShortcuts = false;
+  }
+
+  toggleEnableHeader() {
+    this.isEnableHeader = !this.isEnableHeader;
   }
 
   get nextVideoId() {
@@ -54,5 +72,14 @@ export default class MinPlayPage extends Vue {
 .header {
   position: absolute;
   width: 100vw;
+}
+.shortcuts {
+  position: absolute;
+  color: white;
+  background-color: #333;
+  padding: 16px;
+  right: 16px;
+  top: 60px;
+  border-radius: 6px;
 }
 </style>

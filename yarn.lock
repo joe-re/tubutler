@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/mousetrap@^1.5.34":
+  version "1.5.34"
+  resolved "https://registry.yarnpkg.com/@types/mousetrap/-/mousetrap-1.5.34.tgz#22b338d9c4bcdfd8f81c30684aefeb04a4727168"
+
 "@types/node@^7.0.18":
   version "7.0.29"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.29.tgz#ccfcec5b7135c7caf6c4ffb8c7f33102340d99df"
@@ -1583,6 +1587,10 @@ mkdirp@0.5.0:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+mousetrap@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.1.tgz#2a085f5c751294c75e7e81f6ec2545b29cbf42d9"
 
 ms@0.7.1:
   version "0.7.1"

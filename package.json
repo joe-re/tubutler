@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "date-fns": "^1.28.5",
+    "mousetrap": "^1.6.1",
     "photon": "github:connors/photon",
     "url-search-params": "^0.9.0",
     "vue": "^2.3.4",
@@ -23,6 +24,7 @@
     "youtube-player": "^5.4.0"
   },
   "devDependencies": {
+    "@types/mousetrap": "^1.5.34",
     "css-loader": "^0.28.4",
     "electron": "1.6.11",
     "ts-loader": "^2.1.0",

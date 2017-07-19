@@ -48,7 +48,7 @@ export class MainWindow {
   }
 
   createWindow() {
-    this.win = new BrowserWindow({ width: 800, height: 600 });
+    this.win = new BrowserWindow({ width: 800, height: 600, minHeight: 250, minWidth: 300 });
     this.win.loadURL(url.format({
       pathname: path.join(__dirname, '../index.html'),
       protocol: 'file:',
