@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex, { MutationTree, Plugin, ModuleTree, Store } from 'vuex'
-import { TypedActionTree, SearchActions, ActionCreators } from './actions';
+import { TypedActionTree, SearchActions } from './actions';
 import { mutations } from './mutations'
 import { actions } from './actions';
 import { FullItem } from '../types/Item';
@@ -24,7 +24,7 @@ export const state: State = {
 interface StoreOptions<S, G> {
   state?: S;
   getters?: TypedGetterTree<S, S, G>;
-  actions?: TypedActionTree<S, S, SearchActions, ActionCreators>;
+  actions?: TypedActionTree<S, S, SearchActions>;
   mutations?: MutationTree<S>;
   modules?: ModuleTree<S>;
   plugins?: Plugin<S>[];

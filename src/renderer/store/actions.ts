@@ -19,8 +19,6 @@ export type SearchActions = {
   SET_MIN_PLAYER_MODE: { val: boolean }
 }
 
-type TypedCommit<T, P> = (type: T, payload: P) => void;
-
 interface TypedActionContext<S, R, A> {
   dispatch: Dispatch;
   commit: <K extends keyof A>(params: { type: K, payload: A[K] }) => void,
@@ -32,10 +30,6 @@ interface TypedActionContext<S, R, A> {
 
 type TypedAction<S, R, A, P> = (payload: P) =>
  (injectee: TypedActionContext<S, R, A>) => any;
-
-export type TypedActionTree<S, R, A, AC> = {
-  [P in keyof AC]: TypedAction<S, R, A, AC[P]>;
-};
 
 type TypedMutation<S, P> = (state: S, payload: P) => any;
 type TypedMutationTree<S, A> = {
@@ -50,7 +44,7 @@ export function createMutations<S, A>(params: TypedMutationTree<S, A>) {
   return obj;
 }
 
-function createActions<S, R, A, AC>(params: TypedActionTree<S, R, A, AC>): TypedActionTree<S, R, A, AC> {
+function createActions(params: any): any {
   let obj: any = {};
   Object.keys(params).forEach(k => {
     obj[k] = (actionContext: any, payload: any) => {
@@ -60,14 +54,17 @@ function createActions<S, R, A, AC>(params: TypedActionTree<S, R, A, AC>): Typed
   return obj;
 }
 
-export type ActionCreators = {
-  search: { q: string },
-  fetchRelatedVideos: { videoId: string },
-  addHistory: { videoId: string },
-  setminiPlayerMode: { val: boolean }
+export type TypedActionTree<S, R, A> = {
+  [key: string]: (payload: any) => (ctx: TypedActionContext<S, R, A>) => any
 }
 
-export const actions = createActions<null, null, SearchActions, ActionCreators>({
+function ActionCreatorHelper<S, R, A>() {
+  return {
+    create: <T extends TypedActionTree<S, R, A>>(ac: T): T => createActions(ac)
+  }
+}
+
+export const actions = ActionCreatorHelper<null, null, SearchActions>().create({
   search: (payload: { q: string }) => {
     return async ({ commit }) => {
       try {
@@ -106,9 +103,9 @@ export const actions = createActions<null, null, SearchActions, ActionCreators>(
       });
     }
   },
-  setminiPlayerMode: (payload) => {
+  setminiPlayerMode: (payload: { val: boolean }) => {
     return ({ commit }) => {
       commit({ type: 'SET_MIN_PLAYER_MODE', payload: { val: payload.val } });
     };
   }
-});
+})
