@@ -28,14 +28,14 @@ export class MainWindow {
   }
 
   get miniPlayerMode() {
-    const item = this.findMenuItem('Window', 'Min Player Mode');;
+    const item = this.findMenuItem('Window', 'Mini Player Mode');;
     if (!item) return false;
     return item.checked;
   }
 
   set miniPlayerMode(val: boolean) {
     if (!this.win) return;
-    const item = this.findMenuItem('Window', 'Min Player Mode');;
+    const item = this.findMenuItem('Window', 'Mini Player Mode');;
     if (!item) return;
     if (item.checked !== val) {
       item.checked = val;
