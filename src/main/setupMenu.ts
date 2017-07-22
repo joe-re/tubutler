@@ -38,6 +38,7 @@ function createWindowMenu(mainWindow: MainWindow): Electron.MenuItemConstructorO
       label: 'Always on Top',
       type: 'checkbox',
       checked: false,
+      accelerator: 'CmdOrCtrl+Alt+T',
       click: (item, focusWindow) => {
         mainWindow.alwaysOnTop = item.checked;
       }
@@ -46,6 +47,7 @@ function createWindowMenu(mainWindow: MainWindow): Electron.MenuItemConstructorO
       label: 'Mini Player Mode',
       type: 'checkbox',
       checked: false,
+      accelerator: 'CmdOrCtrl+Alt+M',
       click: (item, focusWindow) => {
         mainWindow.miniPlayerMode = item.checked;
       }

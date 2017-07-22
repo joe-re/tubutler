@@ -30,14 +30,12 @@ export default class Home extends Vue {
   }
 
   changePlayerMode(val: boolean) {
+    let url = this.$route.params.id ? `/${this.$route.params.id}` : '/';
     if (val) {
-      let url = '/mini-player';
-      if (this.$route.params.id) {
-        url += `/${this.$route.params.id}`
-      }
+      url = '/mini-player' + url;
       this.$router.push(url);
     } else {
-      this.$router.push('/');
+      this.$router.push(`${url}`);
     }
   }
 

@@ -43,12 +43,12 @@ export default class IPC extends EventEmitter {
   }
 
   private sendMiniPlayerMode() {
-    const val = JSON.parse(window.localStorage.getItem('MIN_PLAYER_MODE') || 'false');
+    const val = JSON.parse(window.localStorage.getItem('MINI_PLAYER_MODE') || 'false');
     store.actions.setMiniPlayerMode({ val });
     ipcRenderer.send(events.RENDERER.SEND_MINI_PLAYER_MODE, val);
   }
 
   private saveminiPlayerMode(val: boolean) {
-    window.localStorage.setItem('MIN_PLAYER_MODE', JSON.stringify(val));
+    window.localStorage.setItem('MINI_PLAYER_MODE', JSON.stringify(val));
   }
 }

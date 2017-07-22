@@ -25,33 +25,24 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component'
 import Player from './Player.vue';
 import { State } from '../store';
 import VideoList from './VideoList.vue';
 import Thumbnail from './Thumbnail.vue';
 import { Getters } from '../store/getters';
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
-  components: {
-    "player": Player,
-    "video-list": VideoList,
-    "thumbnail": Thumbnail
-  },
-  props: {
-    actions: Object,
-    state: Object,
-    id: {
-      type: String,
-      required: true
-    },
-    getters: Object
-  }
+  components: { Player, VideoList, Thumbnail },
 })
 export default class PlayVideoPage extends Vue {
+  @Prop({ type: Object, required: true })
   state: State;
+
+  @Prop({ type: String, required: true })
   id: string;
+
+  @Prop({ type: Object, required: true })
   getters: Getters;
 
   get videoId() {

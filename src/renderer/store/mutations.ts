@@ -30,7 +30,7 @@ export const mutations: TypedMutationTree<State, Actions> = {
       state.playedVedeoIds = [payload.videoId].concat(state.playedVedeoIds).slice(0, 19);
     }
   },
-  ['SET_MIN_PLAYER_MODE'](state, payload) {
+  ['SET_MINI_PLAYER_MODE'](state, payload) {
     state.miniPlayerMode = payload.val;
   }
 };

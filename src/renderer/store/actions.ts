@@ -17,7 +17,7 @@ export type Actions = {
   },
   SEARCH_RELATED_VIDEOS_REJECTED: { message: string },
   ADD_HISTORY: { videoId: string },
-  SET_MIN_PLAYER_MODE: { val: boolean }
+  SET_MINI_PLAYER_MODE: { val: boolean }
 }
 
 export const actions = ActionCreatorHelper<State, State, Actions>()({
@@ -61,7 +61,7 @@ export const actions = ActionCreatorHelper<State, State, Actions>()({
   },
   setMiniPlayerMode: (payload: { val: boolean }) => {
     return ({ commit }) => {
-      commit({ type: 'SET_MIN_PLAYER_MODE', payload: { val: payload.val } });
+      commit({ type: 'SET_MINI_PLAYER_MODE', payload: { val: payload.val } });
     };
   }
 });
