@@ -5,7 +5,7 @@ import Home from './containers/HomeContainer.vue';
 import PlayVideo from './containers/PlayVideoContainer.vue';
 import miniPlayer from './containers/miniPlayerContainer.vue';
 import store from './store/index';
-import inject from './containers/inject';
+import { inject } from './store/BattleAx'
 
 Vue.use(VueRouter);
 

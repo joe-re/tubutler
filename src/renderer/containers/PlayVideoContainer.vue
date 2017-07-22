@@ -9,7 +9,6 @@ import SearchInput from "./SearchInput.vue";
 import PlayVideoPage from '../components/PlayVideoPage.vue'
 import store from '../store';
 import VueRouter from 'vue-router';
-import inject from './inject'
 import { actions } from '../store/actions';
 
 @Component({

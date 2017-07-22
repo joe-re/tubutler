@@ -1,5 +1,5 @@
 import { SearchActions } from './actions';
-import { createMutations } from './actions';
+import { TypedMutationTree } from './BattleAx';
 import { FullItem } from '../types/Item';
 import { State } from './index';
 import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';
@@ -14,7 +14,7 @@ function mergeResponse(searchAPIResponse: SearchAPIResponse, videoAPIResponse: V
   });
 }
 
-export const mutations = createMutations<State, SearchActions>({
+export const mutations: TypedMutationTree<State, SearchActions> = {
   ['SEARCH_RESOLVED'](state, payload) {
     state.items = mergeResponse(payload.searchAPIResponse, payload.videoAPIResponse);
   },
@@ -33,4 +33,4 @@ export const mutations = createMutations<State, SearchActions>({
   ['SET_MIN_PLAYER_MODE'](state, payload) {
     state.miniPlayerMode = payload.val;
   }
-});
+};

@@ -1,11 +1,9 @@
-import Vue from 'vue'
-import Vuex, { MutationTree, Plugin, ModuleTree, Store } from 'vuex'
-import { TypedActionTree, SearchActions } from './actions';
 import { mutations } from './mutations'
 import { actions } from './actions';
 import { FullItem } from '../types/Item';
-import getters, { TypedGetterTree } from './getters';
+import getters from './getters';
 import plugins from './plugins';
+import { createStore } from './BattleAx';
 
 export type State = {
   items: FullItem[],
@@ -20,27 +18,6 @@ export const state: State = {
   playedVedeoIds: [],
   miniPlayerMode: false
 }
-
-interface StoreOptions<S, G> {
-  state?: S;
-  getters?: TypedGetterTree<S, S, G>;
-  actions?: TypedActionTree<S, S, SearchActions>;
-  mutations?: MutationTree<S>;
-  modules?: ModuleTree<S>;
-  plugins?: Plugin<S>[];
-  strict?: boolean;
-}
-
-export declare class TypedStore<S, G> extends Store<S> {
-  constructor(options: StoreOptions<S, G>);
-  readonly getters: G;
-}
-
-function createStore<S, G>(options: StoreOptions<S, G>): TypedStore<S, G> {
-  return new (Vuex.Store as any)(options);
-}
-
-Vue.use(Vuex)
 
 const store = createStore({
   strict: process.env.NODE_ENV !== 'production',

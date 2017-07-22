@@ -1,18 +1,13 @@
 import { GetterTree, Getter } from 'vuex';
 import { State } from './index';
 import { FullItem } from '../types/Item';
+import { TypedGetterTree } from './BattleAx';
 
 export type Getters = {
   nextVideo: FullItem | null;
   nextVideoId: string | null;
   relatedVideos: FullItem[];
 };
-
-type TypedGetter<S, R, G, V> = (state: S, getters: G, rootState: R, rootGetters: any) => V;
-
-export type TypedGetterTree<S, R, G> = {
-  [P in keyof G]: TypedGetter<S, R, G, G[P]>;
-}
 
 const getters: TypedGetterTree<State, State, Getters> = {
   nextVideo: (state, getters) => {
