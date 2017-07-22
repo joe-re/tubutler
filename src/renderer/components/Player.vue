@@ -1,5 +1,8 @@
 <template>
+  <div>
    <div id="player"></div>
+   <input class="dummy" ref="dummy"/>
+ </div>
 </template>
 
 <script lang="ts">
@@ -10,7 +13,7 @@ import { actions } from '../store/actions';
 
 @Component
 export default class Player extends Vue {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String })
   id?: string;
 
   @Prop({ type: String })
@@ -30,13 +33,25 @@ export default class Player extends Vue {
 
   mounted() {
     if (this.id) {
-      this.player = YoutubePlayer('player', { videoId: this.id, playerVars: { autoplay: 1, rel: 0 }});
+      this.player = YoutubePlayer('player', { videoId: this.id, playerVars: { autoplay: 1, rel: 0, fs: 0 }});
     } else {
-      this.player = YoutubePlayer('player', { playerVars: { autoplay: 1, rel: 0 }});
+      this.player = YoutubePlayer('player', { playerVars: { autoplay: 1, rel: 0, fs: 0 }});
     }
     this.player.on('stateChange', (event: any) => {
       if (event.data === 0 && this.nextId) {
         this.play(this.nextId);
+      }
+    });
+    this.player.on('ready', (hoge: any) => {
+      const dom = document.querySelector('#player');
+      if (dom && dom instanceof HTMLIFrameElement) {
+        dom.contentDocument.addEventListener('keydown', () => {
+          const dummy = this.$refs.dummy;
+          if (dummy && dummy instanceof HTMLInputElement) {
+            // be enable to parent document events
+            dummy.focus();
+          }
+        });
       }
     });
   }
@@ -48,3 +63,11 @@ export default class Player extends Vue {
   }
 }
 </script>
+
+<style scoped>
+  .dummy {
+    position: absolute;
+    top: -100px;
+    z-index: -1;
+  }
+</style>

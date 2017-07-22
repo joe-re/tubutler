@@ -1,4 +1,4 @@
-import { SearchActions } from './actions';
+import {Actions } from './actions';
 import { TypedMutationTree } from './BattleAx';
 import { FullItem } from '../types/Item';
 import { State } from './index';
@@ -14,7 +14,7 @@ function mergeResponse(searchAPIResponse: SearchAPIResponse, videoAPIResponse: V
   });
 }
 
-export const mutations: TypedMutationTree<State, SearchActions> = {
+export const mutations: TypedMutationTree<State, Actions> = {
   ['SEARCH_RESOLVED'](state, payload) {
     state.items = mergeResponse(payload.searchAPIResponse, payload.videoAPIResponse);
   },

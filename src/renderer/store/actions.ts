@@ -3,8 +3,9 @@ import VideoAPI from '../api_utils/VideoAPI';
 import { FullItem } from '../types/Item';
 import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';
 import { ActionCreatorHelper } from './BattleAx';
+import { State } from './';
 
-export type SearchActions = {
+export type Actions = {
   SEARCH_RESOLVED: {
     searchAPIResponse: SearchAPIResponse,
     videoAPIResponse: VideoAPIResponse
@@ -19,7 +20,7 @@ export type SearchActions = {
   SET_MIN_PLAYER_MODE: { val: boolean }
 }
 
-export const actions = ActionCreatorHelper<null, null, SearchActions>()({
+export const actions = ActionCreatorHelper<State, State, Actions>()({
   search: (payload: { q: string }) => {
     return async ({ commit }) => {
       try {

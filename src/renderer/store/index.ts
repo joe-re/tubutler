@@ -12,7 +12,7 @@ export type State = {
   miniPlayerMode: boolean
 }
 
-export const state: State = {
+const state: State = {
   items: [],
   relatedVideos: [],
   playedVedeoIds: [],
