@@ -52,7 +52,7 @@ export default class Thumbnail extends Vue {
   }
   get link() {
     if (this.miniPlayerMode) {
-      return `/min-player/${this.item.id.videoId}`;
+      return `/mini-player/${this.item.id.videoId}`;
     }
     return `/${this.item.id.videoId}`;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-player-page" @mouseover="mouseOver" @mouseout="mouseOut">
+  <div class="mini-player-page" @mouseover="mouseOver" @mouseout="mouseOut">
     <toolbar-header
        class="header" ref="header" v-if="isEnableHeader" :actions="actions"></toolbar-header>
    <transition name="fade">
@@ -65,7 +65,7 @@ export default class miniPlayPage extends Vue {
 </script>
 
 <style>
-.min-player-page #player {
+.mini-player-page #player {
   width: 100vw;
   height: 100vh;
 }

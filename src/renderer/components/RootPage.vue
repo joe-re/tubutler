@@ -31,7 +31,7 @@ export default class Home extends Vue {
 
   changePlayerMode(val: boolean) {
     if (val) {
-      let url = '/min-player';
+      let url = '/mini-player';
       if (this.$route.params.id) {
         url += `/${this.$route.params.id}`
       }
@@ -42,7 +42,7 @@ export default class Home extends Vue {
   }
 
   get isEnableHeader() {
-    return !this.$route.path.startsWith('/min-player');
+    return !this.$route.path.startsWith('/mini-player');
   }
 }
 </script>

@@ -4,7 +4,7 @@
        v-for="item in items"
        :key="item.id"
      >
-       <thumbnail class="thumbnail" :item="item" :min-player-mode="miniPlayerMode"></thumbnail>
+       <thumbnail class="thumbnail" :item="item" :mini-player-mode="miniPlayerMode"></thumbnail>
      </div>
    </div>
 </template>

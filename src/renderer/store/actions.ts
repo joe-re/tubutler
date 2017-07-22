@@ -59,7 +59,7 @@ export const actions = ActionCreatorHelper<State, State, Actions>()({
       });
     }
   },
-  setminiPlayerMode: (payload: { val: boolean }) => {
+  setMiniPlayerMode: (payload: { val: boolean }) => {
     return ({ commit }) => {
       commit({ type: 'SET_MIN_PLAYER_MODE', payload: { val: payload.val } });
     };

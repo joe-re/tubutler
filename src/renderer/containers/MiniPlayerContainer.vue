@@ -1,5 +1,5 @@
 <template>
-  <min-player :id="id" :actions="actions" :state="state" :getters="getters"></min-player>
+  <mini-player :id="id" :actions="actions" :state="state" :getters="getters"></mini-player>
 </template>
 
 <script lang="ts">
@@ -9,7 +9,7 @@ import { actions } from '../store/actions';
 import { remote } from 'electron';
 
 @Component({
-  components: { "min-player": miniPlayer }
+  components: { miniPlayer }
 })
 export default class miniPlayerContainer extends Vue {
   @Prop({ type: Object, required: true })
