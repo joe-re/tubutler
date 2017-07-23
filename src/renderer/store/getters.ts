@@ -1,15 +1,14 @@
-import { GetterTree, Getter } from 'vuex';
 import { State } from './index';
 import { FullItem } from '../types/Item';
-import { TypedGetterTree } from './BattleAx';
+import { GetterTree } from './BattleAx';
 
 export type Getters = {
   nextVideo: FullItem | null;
   nextVideoId: string | null;
-  relatedVideos: FullItem[];
+  relatedVideos: FullItem[]
 };
 
-const getters: TypedGetterTree<State, State, Getters> = {
+const getters: GetterTree<State, State, Getters> = {
   nextVideo: (state, getters) => {
     const next = state.relatedVideos.filter((v) => !state.playedVedeoIds.includes(v.id.videoId));
     if (next.length === 0) {

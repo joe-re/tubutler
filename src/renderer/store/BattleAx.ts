@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import Vuex, { Store, Dispatch, Commit, ActionContext, Action, ActionTree, CommitOptions,  MutationTree, Plugin, ModuleTree } from 'vuex';
+import Vuex, { Store, Dispatch, Plugin, ModuleTree } from 'vuex';
 
-interface TypedActionContext<S, R, A> {
+interface ActionContext<S, R, A> {
   dispatch: Dispatch;
   commit: <K extends keyof A>(params: { type: K, payload: A[K] }) => void,
   state: S;
@@ -10,40 +10,39 @@ interface TypedActionContext<S, R, A> {
   rootGetters: any;
 }
 
-type TypedAction<S, R, A, P> = (payload: P) =>
- (injectee: TypedActionContext<S, R, A>) => any;
-
-export type TypedActionTree<S, R, A> = {
-  [key: string]: (payload: any) => (ctx: TypedActionContext<S, R, A>) => any
+type Action<S, R, A, P> = (payload: P) =>
+ (injectee: ActionContext<S, R, A>) => any;
+export type ActionTree<S, R, A> = {
+  [key: string]: (payload: any) => (ctx: ActionContext<S, R, A>) => any
 }
 
-type TypedMutation<S, P> = (state: S, payload: P) => any;
-
-export type TypedMutationTree<S, A> = {
-  [P in keyof A]?: TypedMutation<S, A[P]>;
+type Mutation<S, P> = (state: S, payload: P) => any;
+export type MutationTree<S, A> = {
+  [P in keyof A]?: Mutation<S, A[P]>;
 };
 
-type TypedGetter<S, R, G, V> = (state: S, getters: G, rootState: R, rootGetters: any) => V;
-export type TypedGetterTree<S, R, G> = {
-  [P in keyof G]: TypedGetter<S, R, G, G[P]>;
+type GetterResult = { [key: string]: any }
+type Getter<S, R, G, V> = (state: S, getters: G, rootState: R, rootGetters: any) => V;
+export type GetterTree<S, R, G extends GetterResult> = {
+  [P in keyof G]: Getter<S, R, G, G[P]>;
 }
 
-interface StoreOptions<S, G, A, AC> {
+interface StoreOptions<S, G, A, AC extends ActionTree<S, S, A>> {
   state?: S;
-  getters?: TypedGetterTree<S, S, G>;
+  getters?: GetterTree<S, S, G>;
   actions?: AC;
-  mutations?: TypedMutationTree<S, A>;
+  mutations?: MutationTree<S, A>;
   modules?: ModuleTree<S>;
   plugins?: Plugin<S>[];
   strict?: boolean;
 }
 
-declare class TypedStore<S, G, A, AC> extends Store<S> {
+declare class TypedStore<S, G, A, AC extends ActionTree<S, S, A>> extends Store<S> {
   constructor(options: StoreOptions<S, G, A, AC>);
   readonly getters: G;
 }
 
-export class BAStore<S, G, A, AC> {
+export class BAStore<S, G, A, AC extends ActionTree<S, S, A>> {
   _store: TypedStore<S, G, A, AC>
   private _actions: AC;
 
@@ -74,7 +73,7 @@ export class BAStore<S, G, A, AC> {
     return this._store.state;
   }
   get getters(): G  {
-    return (this._store.getters as any);
+    return this._store.getters;
   }
 
   get actions(): AC {
@@ -109,15 +108,15 @@ export class BAStore<S, G, A, AC> {
   }
 }
 
-export function createStore<S, G, A, AC>(options: StoreOptions<S, G, A, AC>) {
+export function createStore<S, G, A, AC extends ActionTree<S, S, A>>(options: StoreOptions<S, G, A, AC>) {
   return new BAStore(options);
 }
 
 export function ActionCreatorHelper<S, R, A>() {
-  return <T extends TypedActionTree<S, R, A>>(ac: T): T => ac
+  return <T extends ActionTree<S, R, A>>(ac: T): T => ac
 }
 
-export function inject<S, G, A, AC>(container: any, store: BAStore<S, G, A, AC>) {
+export function inject<S, G, A, AC extends ActionTree<S, S, A>>(container: any, store: BAStore<S, G, A, AC>) {
   const name = container.options.name || 'unknown-container';
   return {
     name: `injected-${name}`,

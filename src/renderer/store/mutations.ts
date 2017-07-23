@@ -1,5 +1,5 @@
 import {Actions } from './actions';
-import { TypedMutationTree } from './BattleAx';
+import { MutationTree } from './BattleAx';
 import { FullItem } from '../types/Item';
 import { State } from './index';
 import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';
@@ -14,7 +14,7 @@ function mergeResponse(searchAPIResponse: SearchAPIResponse, videoAPIResponse: V
   });
 }
 
-export const mutations: TypedMutationTree<State, Actions> = {
+export const mutations: MutationTree<State, Actions> = {
   ['SEARCH_PENDING'](state, payload) {
     state.loading = true;
   },
