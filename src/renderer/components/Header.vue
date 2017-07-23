@@ -1,7 +1,8 @@
 <template>
   <header class="toolbar toolbar-header" :class="mode">
-    <form @submit.prevent="search">
-      <input ref="searchInput" class="form-control" v-model="text" type="text" placeholder="Seach...">
+    <form @submit.prevent="search" class="search-form">
+      <span class="icon icon-search"></span>
+      <input ref="searchInput" class="search-input form-control" v-model="text" type="text" placeholder="Seach...">
     </form>
   </header>
 </template>
@@ -52,6 +53,19 @@ export default class Header extends Vue {
     position: absolute;
     right: 0;
     border-radius: 6px;
+  }
+  .search-form {
+    position: relative;
+  }
+  .icon-search {
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    font-size: 16px;
+    z-index: 10;
+  }
+  .search-input {
+    text-indent: 12px;
   }
 </style>
 
