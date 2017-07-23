@@ -1,7 +1,7 @@
 <template>
   <div class="mini-player-page" @mouseover="mouseOver" @mouseout="mouseOut">
     <toolbar-header
-       class="header" ref="header" v-if="isEnableHeader" :actions="actions"></toolbar-header>
+       class="header" ref="header" v-if="isEnableHeader" :actions="actions" :miniPlayerMode="true"></toolbar-header>
    <transition name="fade">
       <div class="shortcuts" v-if="isShowShortcuts">
         command/ctrl + f : toggle search bar
@@ -72,8 +72,6 @@ export default class miniPlayPage extends Vue {
 </style>
 <style scoped>
 .header {
-  position: absolute;
-  width: 100vw;
 }
 .shortcuts {
   position: absolute;

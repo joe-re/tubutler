@@ -1,34 +1,25 @@
 <template>
   <div class="page">
-    <toolbar-header v-if="isEnableHeader" :actions="actions"></toolbar-header>
+    <toolbar-header v-if="isEnableHeader" :actions="actions" :miniPlayerMode="miniPlayerMode"></toolbar-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from 'vue-class-component'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { State } from '../store';
 import Header from "./Header.vue";
 import ipc from '../ipc';
 
-@Component({
-  components: {
-    "toolbar-header": Header,
-  },
-  props: {
-    actions: Object,
-    state: Object
-  }
-})
+@Component({ components: { "toolbar-header": Header } })
 export default class Home extends Vue {
-  mounted() {
-    ipc.getInstance().addListener('onChangeminiPlayer', this.changePlayerMode);
-  }
+  @Prop({ type: Object, required: true })
+  actions: any;
 
-  beforeDestroy() {
-    ipc.getInstance().removeListener('onChangeminiPlayer', this.changePlayerMode)
-  }
+  @Prop({ type: Object, required: true })
+  state: State;
 
+  @Watch('state.miniPlayerMode')
   changePlayerMode(val: boolean) {
     let url = this.$route.params.id ? `/${this.$route.params.id}` : '/';
     if (val) {
@@ -41,6 +32,10 @@ export default class Home extends Vue {
 
   get isEnableHeader() {
     return !this.$route.path.startsWith('/mini-player');
+  }
+
+  get miniPlayerMode() {
+    return this.state.miniPlayerMode;
   }
 }
 </script>

@@ -36,6 +36,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
   components: { Player, VideoList, Thumbnail },
 })
 export default class PlayVideoPage extends Vue {
+  @Prop({ type: Object, required: true})
+  actions: any;
+
   @Prop({ type: Object, required: true })
   state: State;
 
@@ -103,7 +106,7 @@ export default class PlayVideoPage extends Vue {
 @media (min-width: 640px) {
   .play-video-page #player {
     width: 75vw;
-    height: 100vh;
+    height: calc(100vh - 40px);
   }
 }
 </style>

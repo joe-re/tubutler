@@ -68,4 +68,7 @@ export default class Thumbnail extends Vue {
     margin-right: 16px;
     cursor: pointer;
   }
+  .title {
+    color: #aaa;
+  }
 </style>

@@ -23,8 +23,8 @@ export default class IPC extends EventEmitter {
       } else {
         remote.getCurrentWindow().setMaximumSize(9999, 9999);
       }
+      store.actions.setMiniPlayerMode({ val });
       this.saveminiPlayerMode(val);
-      this.emit('onChangeminiPlayer', val);
     });
     remote.getCurrentWindow().on('close', () => {
       ipcRenderer.removeAllListeners(events.MAIN.REQUEST_ALWAYS_ON_TOP);
