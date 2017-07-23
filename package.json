@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "date-fns": "^1.28.5",
+    "file-loader": "^0.11.2",
     "mousetrap": "^1.6.1",
     "photon": "github:connors/photon",
     "url-search-params": "^0.9.0",

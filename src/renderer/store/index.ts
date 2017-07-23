@@ -10,7 +10,8 @@ export type State = {
   relatedVideos: FullItem[],
   playedVedeoIds: string[],
   miniPlayerMode: boolean,
-  transparentRate: number
+  transparentRate: number,
+  loading: boolean
 }
 
 const state: State = {
@@ -18,7 +19,8 @@ const state: State = {
   relatedVideos: [],
   playedVedeoIds: [],
   miniPlayerMode: false,
-  transparentRate: 0
+  transparentRate: 0,
+  loading: false
 }
 
 const store = createStore({

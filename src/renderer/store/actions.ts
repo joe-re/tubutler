@@ -6,15 +6,11 @@ import { ActionCreatorHelper } from './BattleAx';
 import { State } from './';
 
 export type Actions = {
-  SEARCH_RESOLVED: {
-    searchAPIResponse: SearchAPIResponse,
-    videoAPIResponse: VideoAPIResponse
-  },
+  SEARCH_PENDING: null,
+  SEARCH_RESOLVED: { searchAPIResponse: SearchAPIResponse, videoAPIResponse: VideoAPIResponse },
   SEARCH_REJECTED: { message: string },
-  SEARCH_RELATED_VIDEOS_RESOLVED: {
-    searchAPIResponse: SearchAPIResponse,
-    videoAPIResponse: VideoAPIResponse
-  },
+  SEARCH_RELATED_VIDEOS_PENDING: null,
+  SEARCH_RELATED_VIDEOS_RESOLVED: { searchAPIResponse: SearchAPIResponse, videoAPIResponse: VideoAPIResponse },
   SEARCH_RELATED_VIDEOS_REJECTED: { message: string },
   ADD_HISTORY: { videoId: string },
   SET_MINI_PLAYER_MODE: { val: boolean },
@@ -24,6 +20,7 @@ export type Actions = {
 export const actions = ActionCreatorHelper<State, State, Actions>()({
   search: (payload: { q: string }) => {
     return async ({ commit }) => {
+      commit({ type: 'SEARCH_PENDING', payload: null });
       try {
         const searchAPIResponse = await SearchAPI.fetchList({ q: payload.q });
         const videoAPIResponse = await VideoAPI.fetchVideos({ ids: searchAPIResponse.items.map(item => item.id.videoId) });

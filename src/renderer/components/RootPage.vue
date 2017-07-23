@@ -1,6 +1,7 @@
 <template>
   <div class="page">
     <toolbar-header v-if="isEnableHeader" :actions="actions" :miniPlayerMode="miniPlayerMode"></toolbar-header>
+    <img v-if="loading" class="loading" src="../../images/Rolling.png"></img>
     <router-view></router-view>
   </div>
 </template>
@@ -45,10 +46,24 @@ export default class Home extends Vue {
   get miniPlayerMode() {
     return this.state.miniPlayerMode;
   }
+
+  get loading() {
+    return this.state.loading;
+  }
 }
 </script>
 <style scoped>
  .page {
    height: calc(100vh - 48px);
  }
+.loading {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  animation: spin 1s infinite linear;
+}
+@keyframes spin {
+  0%  {-webkit-transform: rotate(0deg);}
+  100% {-webkit-transform: rotate(360deg);}
+}
 </style>

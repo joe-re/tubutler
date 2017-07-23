@@ -66,6 +66,7 @@ export default class Header extends Vue {
   }
   .search-input {
     text-indent: 12px;
+    color: black;
   }
 </style>
 

@@ -15,15 +15,25 @@ function mergeResponse(searchAPIResponse: SearchAPIResponse, videoAPIResponse: V
 }
 
 export const mutations: TypedMutationTree<State, Actions> = {
+  ['SEARCH_PENDING'](state, payload) {
+    state.loading = true;
+  },
   ['SEARCH_RESOLVED'](state, payload) {
     state.items = mergeResponse(payload.searchAPIResponse, payload.videoAPIResponse);
+    state.loading = false;
   },
   ['SEARCH_REJECTED'](state, payload) {
+    state.loading = false;
+  },
+  ['SEARCH_RELATED_VIDEOS_PENDING'](state, payload) {
+    state.loading = true;
   },
   ['SEARCH_RELATED_VIDEOS_RESOLVED'](state, payload) {
     state.relatedVideos = mergeResponse(payload.searchAPIResponse, payload.videoAPIResponse);
+    state.loading = false;
   },
   ['SEARCH_RELATED_VIDEOS_REJECTED'](state, payload) {
+    state.loading = false;
   },
   ['ADD_HISTORY'](state, payload) {
     if (!state.playedVedeoIds.find(id => id === payload.videoId)) {
