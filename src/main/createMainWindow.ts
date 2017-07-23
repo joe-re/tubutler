@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, Menu } from 'electron';
+import { shell, BrowserWindow, ipcMain, Menu } from 'electron';
 import path from 'path';
 import url from 'url';
 import events from '../constants/ipcEvents';
@@ -65,6 +65,10 @@ export class MainWindow {
     });
     this.win.on('closed', () => {
       this.win = null;
+    });
+    this.win.webContents.on('new-window', (event, url) => {
+      event.preventDefault();
+      shell.openExternal(url);
     });
     // this.win.webContents.openDevTools();
   }
