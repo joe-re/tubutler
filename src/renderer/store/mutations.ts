@@ -32,5 +32,8 @@ export const mutations: TypedMutationTree<State, Actions> = {
   },
   ['SET_MINI_PLAYER_MODE'](state, payload) {
     state.miniPlayerMode = payload.val;
+  },
+  ['SET_TRANSPARENT_RATE'](state, payload) {
+    state.transparentRate = payload.transparentRate;
   }
 };

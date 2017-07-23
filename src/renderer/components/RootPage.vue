@@ -30,6 +30,14 @@ export default class Home extends Vue {
     }
   }
 
+  @Watch('state.transparentRate')
+  changeTransparentRate(rate: number) {
+    const opacity = (100 - rate) / 100;
+    const backgraund = `rgba(27, 27, 27, ${opacity})`;
+    window.document.body.style.backgroundColor = backgraund;
+    window.document.body.style.opacity = opacity.toString();
+  }
+
   get isEnableHeader() {
     return !this.$route.path.startsWith('/mini-player');
   }

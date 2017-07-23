@@ -17,8 +17,9 @@ export type Actions = {
   },
   SEARCH_RELATED_VIDEOS_REJECTED: { message: string },
   ADD_HISTORY: { videoId: string },
-  SET_MINI_PLAYER_MODE: { val: boolean }
-}
+  SET_MINI_PLAYER_MODE: { val: boolean },
+  SET_TRANSPARENT_RATE: { transparentRate: number }
+};
 
 export const actions = ActionCreatorHelper<State, State, Actions>()({
   search: (payload: { q: string }) => {
@@ -63,5 +64,10 @@ export const actions = ActionCreatorHelper<State, State, Actions>()({
     return ({ commit }) => {
       commit({ type: 'SET_MINI_PLAYER_MODE', payload: { val: payload.val } });
     };
-  }
+  },
+  setTransparentRate: (payload: { transparentRate: number }) => {
+    return ({ commit }) => {
+      commit({ type: 'SET_TRANSPARENT_RATE', payload: { transparentRate: payload.transparentRate } });
+    };
+  },
 });

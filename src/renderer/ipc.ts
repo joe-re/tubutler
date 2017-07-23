@@ -17,6 +17,9 @@ export default class IPC extends EventEmitter {
     ipcRenderer.on(events.MAIN.REQUEST_ALWAYS_ON_TOP, this.sendALwaysOnTop);
     ipcRenderer.on(events.MAIN.SEND_ALWAYS_ON_TOP, (e: Electron.IpcMessageEvent, val: boolean) => this.saveAlwaysOnTop(val));
     ipcRenderer.on(events.MAIN.REQUEST_MINI_PLAYER_MODE, this.sendMiniPlayerMode);
+    ipcRenderer.on(events.MAIN.SEND_TRANSPARENT_RATE, (e: Electron.IpcMessageEvent, transparentRate: number) => {
+      store.actions.setTransparentRate({ transparentRate });
+    });
     ipcRenderer.on(events.MAIN.SEND_MINI_PLAYER_MODE, (e: Electron.IpcMessageEvent, val: boolean) => {
       if (val) {
         remote.getCurrentWindow().setMaximumSize(700, 392);
@@ -30,6 +33,7 @@ export default class IPC extends EventEmitter {
       ipcRenderer.removeAllListeners(events.MAIN.REQUEST_ALWAYS_ON_TOP);
       ipcRenderer.removeAllListeners(events.MAIN.SEND_ALWAYS_ON_TOP);
       ipcRenderer.removeAllListeners(events.MAIN.SEND_MINI_PLAYER_MODE);
+      ipcRenderer.removeAllListeners(events.MAIN.SEND_TRANSPARENT_RATE);
     });
   }
 

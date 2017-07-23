@@ -1,5 +1,12 @@
 import { app, Menu, ipcMain  } from 'electron';
 import { MainWindow } from './createMainWindow';
+import events from '../constants/ipcEvents';
+
+function sendTransparentRate(focusWindow: Electron.BrowserWindow, rate: number) {
+  if (focusWindow && focusWindow.webContents) {
+    focusWindow.webContents.send(events.MAIN.SEND_TRANSPARENT_RATE, rate);
+  }
+}
 
 function createViewMenu(): Electron.MenuItemConstructorOptions {
   return {
@@ -51,7 +58,23 @@ function createWindowMenu(mainWindow: MainWindow): Electron.MenuItemConstructorO
       click: (item, focusWindow) => {
         mainWindow.miniPlayerMode = item.checked;
       }
-    }
+    },
+    {
+      label: 'Transparent Rate',
+      type: 'submenu',
+      submenu: [
+        { label: '0%', accelerator: 'CmdOrCtrl+Alt+0', type: 'radio', checked: true, click: (item, focusWindow) => sendTransparentRate(focusWindow, 0) },
+        { label: '10%', accelerator: 'CmdOrCtrl+Alt+1', type: 'radio', click: (item, focusWindow) => sendTransparentRate(focusWindow, 10) },
+        { label: '20%', accelerator: 'CmdOrCtrl+Alt+2', type: 'radio', click: (item, focusWindow) => sendTransparentRate(focusWindow, 20) },
+        { label: '30%', accelerator: 'CmdOrCtrl+Alt+3', type: 'radio', click: (item, focusWindow) => sendTransparentRate(focusWindow, 30) },
+        { label: '40%', accelerator: 'CmdOrCtrl+Alt+4', type: 'radio', click: (item, focusWindow) => sendTransparentRate(focusWindow, 40) },
+        { label: '50%', accelerator: 'CmdOrCtrl+Alt+5', type: 'radio', click: (item, focusWindow) => sendTransparentRate(focusWindow, 50) },
+        { label: '60%', accelerator: 'CmdOrCtrl+Alt+6', type: 'radio', click: (item, focusWindow) => sendTransparentRate(focusWindow, 60) },
+        { label: '70%', accelerator: 'CmdOrCtrl+Alt+7', type: 'radio', click: (item, focusWindow) => sendTransparentRate(focusWindow, 70) },
+        { label: '80%', accelerator: 'CmdOrCtrl+Alt+8', type: 'radio', click: (item, focusWindow) => sendTransparentRate(focusWindow, 80) },
+        { label: '90%', accelerator: 'CmdOrCtrl+Alt+9', type: 'radio', click: (item, focusWindow) => sendTransparentRate(focusWindow, 90) },
+      ]
+    },
   ]);
   return { label: 'Window', submenu: subMenu };
 }

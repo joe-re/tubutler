@@ -9,14 +9,16 @@ export type State = {
   items: FullItem[],
   relatedVideos: FullItem[],
   playedVedeoIds: string[],
-  miniPlayerMode: boolean
+  miniPlayerMode: boolean,
+  transparentRate: number
 }
 
 const state: State = {
   items: [],
   relatedVideos: [],
   playedVedeoIds: [],
-  miniPlayerMode: false
+  miniPlayerMode: false,
+  transparentRate: 0
 }
 
 const store = createStore({
