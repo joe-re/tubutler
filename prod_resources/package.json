@@ -1,0 +1,8 @@
+{
+  "name": "tubutler",
+  "version": "0.0.1",
+  "description": "youtube desktop client",
+  "main": "main.js",
+  "author": "joe-re <joe.tialtngo@gmail.com>",
+  "license": "MIT"
+}

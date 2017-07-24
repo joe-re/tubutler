@@ -49,8 +49,9 @@ export class MainWindow {
 
   createWindow() {
     this.win = new BrowserWindow({ width: 800, height: 600, minHeight: 250, minWidth: 300, transparent: true, titleBarStyle: 'hidden' });
+    const htmlPath = process.env.NODE_ENV === 'production' ? './index.html' : '../index.html';
     this.win.loadURL(url.format({
-      pathname: path.join(__dirname, '../index.html'),
+      pathname: path.join(__dirname, htmlPath),
       protocol: 'file:',
       slashes: true
     }));

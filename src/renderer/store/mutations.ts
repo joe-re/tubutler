@@ -1,5 +1,5 @@
 import {Actions } from './actions';
-import { MutationTree } from './BattleAx';
+import { MutationTree } from 'battle-ax';
 import { FullItem } from '../types/Item';
 import { State } from './index';
 import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';

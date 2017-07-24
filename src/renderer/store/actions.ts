@@ -2,7 +2,7 @@ import SearchAPI from '../api_utils/SearchAPI';
 import VideoAPI from '../api_utils/VideoAPI';
 import { FullItem } from '../types/Item';
 import { SearchAPIResponse, VideoAPIResponse } from '../types/APIResponse';
-import { ActionCreatorHelper } from './BattleAx';
+import { ActionCreatorHelper } from 'battle-ax';
 import { State } from './';
 
 export type Actions = {

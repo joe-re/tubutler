@@ -7,9 +7,16 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "electron": "electron ."
+    "electron": "electron .",
+    "clean": "rm -rf dist && rm -rf release",
+    "package": "npm run clean && NODE_ENV=production npm run build && npm run package:css && npm run package:font && cp ./prod_resources/* ./dist/ && electron-packager dist \"tubutler\" --all --out=release --icon=\"resource/icon\"",
+    "package:css": "mkdir -p dist/css && cp ./node_modules/photon/dist/css/photon.css ./dist/css",
+    "package:font": "mkdir -p dist/fonts && cp ./node_modules/photon/dist/fonts/* ./dist/fonts",
+    "zip": "gulp zip",
+    "release": "npm run package && npm run zip"
   },
   "dependencies": {
+    "battle-ax": "^0.0.1",
     "date-fns": "^1.28.5",
     "file-loader": "^0.11.2",
     "mousetrap": "^1.6.1",
@@ -28,6 +35,9 @@
     "@types/mousetrap": "^1.5.34",
     "css-loader": "^0.28.4",
     "electron": "1.6.11",
+    "electron-packager": "^8.7.2",
+    "glob": "^7.1.2",
+    "gulp": "^3.9.1",
     "ts-loader": "^2.1.0",
     "typescript": "^2.3.4",
     "vue-loader": "^12.2.1",

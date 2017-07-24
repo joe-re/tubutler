@@ -1,6 +1,6 @@
 import { State } from './index';
 import { FullItem } from '../types/Item';
-import { GetterTree } from './BattleAx';
+import { GetterTree } from 'battle-ax';
 
 export type Getters = {
   nextVideo: FullItem | null;
