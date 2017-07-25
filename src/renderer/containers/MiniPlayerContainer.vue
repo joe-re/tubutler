@@ -27,7 +27,7 @@ export default class miniPlayerContainer extends Vue {
     }
     const player = this.$el.querySelector('#player');
     if (player) {
-      remote.getCurrentWindow().setSize(Math.max(player.clientWidth, 700), Math.max(player.clientHeight, 392));
+      remote.getCurrentWindow().setSize(Math.min(player.clientWidth, 700), Math.min(player.clientHeight, 392));
     }
   }
 
