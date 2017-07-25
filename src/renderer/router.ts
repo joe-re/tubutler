@@ -12,9 +12,9 @@ Vue.use(VueRouter);
 const routes = [
   { path: '/', component: inject(Root, store),
     children: [
-      { path: '/mini-player/:id?', component: inject(miniPlayer, store) },
-      { path: '/', component: inject(Home, store) },
-      { path: '/:id', component: inject(PlayVideo, store) },
+      { path: '/mini-player/:id?', name: 'miniPlayer', component: inject(miniPlayer, store) },
+      { path: '/', name: 'home', component: inject(Home, store) },
+      { path: '/:id', name: 'player', component: inject(PlayVideo, store) },
     ]
   },
 ];

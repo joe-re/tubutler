@@ -8,6 +8,12 @@ function sendTransparentRate(focusWindow: Electron.BrowserWindow, rate: number) 
   }
 }
 
+function sendPlayNext(focusWindow: Electron.BrowserWindow) {
+  if (focusWindow && focusWindow.webContents) {
+    focusWindow.webContents.send(events.MAIN.SEND_PLAY_NEXT);
+  }
+}
+
 function createViewMenu(): Electron.MenuItemConstructorOptions {
   return {
     label: "View",
@@ -21,6 +27,11 @@ function createViewMenu(): Electron.MenuItemConstructorOptions {
         label: "Toggle DevTools",
         accelerator: process.platform === "darwin" ? "Alt+Command+I" : "Ctrl+Shift+I",
         click: (item: any, focusedWindow: Electron.BrowserWindow) => focusedWindow && focusedWindow.webContents.toggleDevTools()
+      },
+      {
+        label: "Play Next",
+        accelerator: "CmdOrCtrl+N",
+        click: (item, focusWindow) => sendPlayNext(focusWindow)
       }
     ],
   }

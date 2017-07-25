@@ -9,6 +9,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State } from '../store';
+import { Getters } from '../store/getters';
 import Header from "./Header.vue";
 import ipc from '../ipc';
 
@@ -19,6 +20,9 @@ export default class Home extends Vue {
 
   @Prop({ type: Object, required: true })
   state: State;
+
+  @Prop({ type: Object, required: true })
+  getters: Getters;
 
   @Watch('state.miniPlayerMode')
   changePlayerMode(val: boolean) {
@@ -37,6 +41,20 @@ export default class Home extends Vue {
     const backgraund = `rgba(27, 27, 27, ${opacity})`;
     window.document.body.style.backgroundColor = backgraund;
     window.document.body.style.opacity = opacity.toString();
+  }
+
+  mounted() {
+    ipc.getInstance().on('PLAY_NEXT', this.playNext);
+  }
+
+  beforeDeastory() {
+    ipc.getInstance().removeListener('PLAY_NEXT', this.playNext);
+  }
+
+  playNext() {
+    if (['miniPlayer', 'player'].includes(this.$route.name || '') && this.getters.nextVideoId) {
+      this.$router.push({ name: this.$route.name, params: { id: this.getters.nextVideoId } });
+    }
   }
 
   get isEnableHeader() {

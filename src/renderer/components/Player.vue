@@ -39,7 +39,7 @@ export default class Player extends Vue {
     }
     this.player.on('stateChange', (event: any) => {
       if (event.data === 0 && this.nextId) {
-        this.play(this.nextId);
+        this.$router.push({ name: this.$route.name, params: { id: this.nextId } });
       }
     });
     this.player.on('ready', (hoge: any) => {

@@ -1,5 +1,5 @@
 <template>
-  <root-page :actions="actions" :state="state"></root-page>
+  <root-page :actions="actions" :state="state" :getters="getters"></root-page>
 </template>
 
 <script lang="ts">
