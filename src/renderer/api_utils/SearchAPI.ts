@@ -2,7 +2,7 @@ import deserializeJSONResponse from './desirializeJSONResponse';
 import Request from './Request';
 import { SearchAPIResponse } from '../types/APIResponse';
 
-type FeatchListParams = { q: string }
+type FeatchListParams = { q: string, pageToken: string }
 function fetchList(params: FeatchListParams): Promise<SearchAPIResponse> {
   return deserializeJSONResponse(
     Request.get({
@@ -11,9 +11,9 @@ function fetchList(params: FeatchListParams): Promise<SearchAPIResponse> {
         part: 'snippet',
         order: 'viewCount',
         q: params.q,
+        pageToken: params.pageToken,
         type: 'video',
         maxResults: 20
-
       }
     })
   );

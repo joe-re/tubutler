@@ -20,6 +20,8 @@ export const mutations: MutationTree<State, Actions> = {
   },
   ['SEARCH_RESOLVED'](state, payload) {
     state.items = mergeResponse(payload.searchAPIResponse, payload.videoAPIResponse);
+    state.prevPageToken = payload.searchAPIResponse.prevPageToken;
+    state.nextPageToken = payload.searchAPIResponse.nextPageToken;
     state.loading = false;
   },
   ['SEARCH_REJECTED'](state, payload) {
@@ -45,5 +47,10 @@ export const mutations: MutationTree<State, Actions> = {
   },
   ['SET_TRANSPARENT_RATE'](state, payload) {
     state.transparentRate = payload.transparentRate;
+  },
+  ['SET_SEARCH_TEXT'](state, payload) {
+    state.searchText = payload.searchText;
+    state.prevPageToken = '';
+    state.nextPageToken = '';
   }
 };

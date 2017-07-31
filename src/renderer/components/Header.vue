@@ -2,7 +2,14 @@
   <header class="toolbar toolbar-header" :class="mode">
     <form @submit.prevent="search" class="search-form">
       <span class="icon icon-search"></span>
-      <input ref="searchInput" class="search-input form-control" v-model="text" type="text" placeholder="Seach...">
+      <input
+        ref="searchInput"
+        class="search-input form-control"
+        type="text"
+        v-model="text"
+        v-on:change="onChangeSearchText"
+        placeholder="Seach..."
+      >
     </form>
   </header>
 </template>
@@ -11,10 +18,19 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { actions } from '../store/actions';
 
-@Component({ })
+@Component({
+  props: {
+    searchText: String,
+    miniPlayerMode: Boolean,
+    actions: Object
+  }
+})
 export default class Header extends Vue {
   @Prop({ type: Object, required: true})
   actions: typeof actions;
+
+  @Prop({ type: String, required: true })
+  searchText: string;
 
   @Prop({ type: Boolean, required: true })
   miniPlayerMode: boolean;
@@ -24,11 +40,16 @@ export default class Header extends Vue {
   mounted() {
     (this.$refs.searchInput as HTMLInputElement).focus();
   }
+
+  onChangeSearchText(e: HTMLInputElement) {
+    this.actions.changeSearchText({ searchText: this.text });
+  }
+
   search(e: MouseEvent) {
     if (this.$router.currentRoute.path === '/') {
-      this.actions.search({ q: this.text });
+      this.actions.search({ q: this.searchText, pageToken: '' });
     } else {
-      this.$router.push('/', () => this.actions.search({ q: this.text }));
+      this.$router.push('/', () => this.actions.search({ q: this.searchText, pageToken: '' }));
     }
   }
 

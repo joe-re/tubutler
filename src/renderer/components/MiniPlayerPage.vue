@@ -1,12 +1,12 @@
 <template>
   <div class="mini-player-page" @mouseover="mouseOver" @mouseout="mouseOut">
     <toolbar-header
-       class="header" ref="header" v-if="isEnableHeader" :actions="actions" :miniPlayerMode="true"></toolbar-header>
-   <transition name="fade">
+       class="header" ref="header" v-if="isEnableHeader" :actions="actions" :searchText="searchText" :miniPlayerMode="true"></toolbar-header>
+    <transition name="fade">
       <div class="shortcuts" v-if="isShowShortcuts">
         command/ctrl + f : toggle search bar
       </div>
-   </transition>
+    </transition>
     <player :id="id" :nextId="nextVideoId" :actions="actions"></player>
   </div>
 </template>
@@ -15,6 +15,8 @@
 import Player from './Player.vue';
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Getters } from '../store/getters';
+import { State } from '../store';
+import { actions } from '../store/actions';
 import Header from './Header.vue';
 import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
@@ -27,7 +29,10 @@ import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 })
 export default class miniPlayPage extends Vue {
   @Prop({ type: Object, required: true })
-  actions: Object;
+  actions: typeof actions;
+
+  @Prop({ type: Object, required: true })
+  state: State;
 
   @Prop({ type: Object, required: true })
   getters: Getters;
@@ -56,6 +61,10 @@ export default class miniPlayPage extends Vue {
 
   toggleEnableHeader() {
     this.isEnableHeader = !this.isEnableHeader;
+  }
+
+  get searchText() {
+    return this.state.searchText;
   }
 
   get nextVideoId() {

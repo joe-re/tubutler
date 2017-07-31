@@ -9,7 +9,12 @@ import { actions } from '../store/actions';
 import { remote } from 'electron';
 
 @Component({
-  components: { miniPlayer }
+  components: { "mini-player": miniPlayer },
+  props: {
+    actions: { type: Object, required: true },
+    state: { type: Object, required: true },
+    getters: { type: Object, required: true }
+  }
 })
 export default class miniPlayerContainer extends Vue {
   @Prop({ type: Object, required: true })

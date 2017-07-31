@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <toolbar-header v-if="isEnableHeader" :actions="actions" :miniPlayerMode="miniPlayerMode"></toolbar-header>
+    <toolbar-header v-if="isEnableHeader" :actions="actions" :searchText="searchText" :miniPlayerMode="miniPlayerMode"></toolbar-header>
     <img v-if="loading" class="loading" src="../../images/Rolling.png"></img>
     <router-view></router-view>
   </div>
@@ -55,6 +55,10 @@ export default class Home extends Vue {
     if (['miniPlayer', 'player'].includes(this.$route.name || '') && this.getters.nextVideoId) {
       this.$router.push({ name: this.$route.name, params: { id: this.getters.nextVideoId } });
     }
+  }
+
+  get searchText() {
+    return this.state.searchText;
   }
 
   get isEnableHeader() {
