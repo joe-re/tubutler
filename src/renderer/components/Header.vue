@@ -18,13 +18,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { actions } from '../store/actions';
 
-@Component({
-  props: {
-    searchText: String,
-    miniPlayerMode: Boolean,
-    actions: Object
-  }
-})
+@Component({})
 export default class Header extends Vue {
   @Prop({ type: Object, required: true})
   actions: typeof actions;

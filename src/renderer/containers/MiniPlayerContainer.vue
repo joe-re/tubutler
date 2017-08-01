@@ -9,7 +9,7 @@ import { actions } from '../store/actions';
 import { remote } from 'electron';
 
 @Component({
-  components: { "mini-player": miniPlayer },
+  components: { miniPlayer },
   props: {
     actions: { type: Object, required: true },
     state: { type: Object, required: true },
