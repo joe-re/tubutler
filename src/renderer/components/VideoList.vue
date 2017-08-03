@@ -7,8 +7,8 @@
        <thumbnail class="thumbnail" :item="item" :mini-player-mode="miniPlayerMode"></thumbnail>
      </div>
      <div class="pagination-container">
-       <button class="pagination" v-if="prevPageToken" v-on:click="prevPage">prev</button>
-       <button class="pagination" v-if="nextPageToken" v-on:click="nextPage">next</button>
+       <button class="pagination btn btn-default" v-if="prevPageToken" v-on:click="prevPage">prev</button>
+       <button class="pagination btn btn-default" v-if="nextPageToken" v-on:click="nextPage">next</button>
      </div>
    </div>
 </template>
