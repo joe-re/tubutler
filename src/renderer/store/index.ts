@@ -5,6 +5,9 @@ import getters from './getters';
 import { createStore } from 'battle-ax';
 
 export type State = {
+  searchText: string,
+  prevPageToken: string,
+  nextPageToken: string,
   items: FullItem[],
   relatedVideos: FullItem[],
   playedVedeoIds: string[],
@@ -14,6 +17,9 @@ export type State = {
 }
 
 const state: State = {
+  searchText: '',
+  prevPageToken: '',
+  nextPageToken: '',
   items: [],
   relatedVideos: [],
   playedVedeoIds: [],

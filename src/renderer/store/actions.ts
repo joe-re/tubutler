@@ -7,26 +7,27 @@ import { State } from './';
 
 export type Actions = {
   SEARCH_PENDING: null,
-  SEARCH_RESOLVED: { searchAPIResponse: SearchAPIResponse, videoAPIResponse: VideoAPIResponse },
+  SEARCH_RESOLVED: { searchAPIResponse: SearchAPIResponse, videoAPIResponse: VideoAPIResponse, searchText: string },
   SEARCH_REJECTED: { message: string },
   SEARCH_RELATED_VIDEOS_PENDING: null,
   SEARCH_RELATED_VIDEOS_RESOLVED: { searchAPIResponse: SearchAPIResponse, videoAPIResponse: VideoAPIResponse },
   SEARCH_RELATED_VIDEOS_REJECTED: { message: string },
   ADD_HISTORY: { videoId: string },
   SET_MINI_PLAYER_MODE: { val: boolean },
-  SET_TRANSPARENT_RATE: { transparentRate: number }
+  SET_TRANSPARENT_RATE: { transparentRate: number },
+  SET_SEARCH_TEXT: { searchText: string }
 };
 
 export const actions = ActionCreatorHelper<State, State, Actions>()({
-  search: (payload: { q: string }) => {
+  search: (payload: { q: string, pageToken: string }) => {
     return async ({ commit }) => {
       commit({ type: 'SEARCH_PENDING', payload: null });
       try {
-        const searchAPIResponse = await SearchAPI.fetchList({ q: payload.q });
+        const searchAPIResponse = await SearchAPI.fetchList({ q: payload.q, pageToken: payload.pageToken });
         const videoAPIResponse = await VideoAPI.fetchVideos({ ids: searchAPIResponse.items.map(item => item.id.videoId) });
         commit({
           type: 'SEARCH_RESOLVED',
-          payload: { searchAPIResponse, videoAPIResponse }
+          payload: { searchAPIResponse, videoAPIResponse, searchText: payload.q }
         });
       } catch (e) {
       }
@@ -67,4 +68,10 @@ export const actions = ActionCreatorHelper<State, State, Actions>()({
       commit({ type: 'SET_TRANSPARENT_RATE', payload: { transparentRate: payload.transparentRate } });
     };
   },
+
+  changeSearchText: (payload: { searchText: string }) => {
+    return ({ commit }) => {
+      commit({ type: 'SET_SEARCH_TEXT', payload: { searchText: payload.searchText } });
+    }
+  }
 });
