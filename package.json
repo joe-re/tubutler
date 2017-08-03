@@ -1,6 +1,6 @@
 {
   "name": "tubutler",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Simple and useful YouTube Player for Desktop",
   "main": "dist/main.js",
   "author": "joe-re <joe.tialtngo@gmail.com>",
